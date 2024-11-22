@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Tarumt.WAM.Assignment.props" />
+</Project>

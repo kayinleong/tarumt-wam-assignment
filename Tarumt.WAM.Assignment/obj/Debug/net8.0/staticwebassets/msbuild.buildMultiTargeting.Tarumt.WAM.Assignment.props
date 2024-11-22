@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Tarumt.WAM.Assignment.props" />
+</Project>
