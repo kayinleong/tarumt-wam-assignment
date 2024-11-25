@@ -284,7 +284,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.User", "User")
-                        .WithMany("Ticket")
+                        .WithMany("Tickets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -322,7 +322,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
 
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.User", b =>
                 {
-                    b.Navigation("Ticket");
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
