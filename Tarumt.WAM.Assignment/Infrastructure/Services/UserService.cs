@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Tarumt.WAM.Assignment.Infrastructure.Constants;
 using Tarumt.WAM.Assignment.Infrastructure.Context;
 using Tarumt.WAM.Assignment.Infrastructure.Models;
 
 namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
-    public class UserService(DatabaseContext context, IPasswordHasher<User> passwordHasher)
+    public class UserService(
+        DatabaseContext context, 
+        IPasswordHasher<User> passwordHasher)
     {
-        public PagedList<User> GetAllAsync(int pageNumber, int pageSize, string keyword)
+        public PagedList<User> GetAllAsync(int pageNumber, int pageSize, string keyword, UserEnum status = UserEnum.GUEST)
         {
             if (string.IsNullOrEmpty(keyword))
             {
                 return PagedList<User>.ToPagedList(
                     context.Set<User>()
                         .Include(m => m.SecurityMeta)
+                        .Where(m => m.SecurityMeta.Type == status)
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
@@ -21,8 +25,9 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             {
                 return PagedList<User>.ToPagedList(
                     context.Set<User>()
-                        .Where(m => m.Username.Contains(keyword))
                         .Include(m => m.SecurityMeta)
+                        .Where(m => m.SecurityMeta.Type == status)
+                        .Where(m => m.Username.Contains(keyword))
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
@@ -94,9 +99,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             existingUser.LastName = user.LastName;
             existingUser.Username = user.Username;
             existingUser.Email = user.Email;
-            existingUser.SecurityMeta = user.SecurityMeta;
-            existingUser.Password = passwordHasher.HashPassword(user, user.Password);
             existingUser.UpdatedAt = DateTime.Today;
+            existingUser.SecurityMeta.Type = user.SecurityMeta.Type;
 
             try
             {
@@ -124,11 +128,19 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             }
         }
 
-        public void ValidatePassword(string rawPassword, User user)
+        public async Task ValidatePassword(string rawPassword, User user)
         {
             if (passwordHasher.VerifyHashedPassword(user, user.Password, rawPassword) == PasswordVerificationResult.Failed)
             {
+                user.SecurityMeta.LoginAttempt += 1;
+                await UpdateByIdAsync(user);
+
                 throw new InvalidOperationException("Invalid login credentials");
+            }
+            else
+            {
+                user.SecurityMeta.LoginAttempt = 0;
+                await UpdateByIdAsync(user);
             }
         }
     }

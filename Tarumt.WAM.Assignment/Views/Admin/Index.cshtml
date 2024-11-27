@@ -1,0 +1,30 @@
+﻿@model AdminResponse
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="w-full p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-4 bg-blue-100 border border-blue-200 rounded-lg dark:bg-blue-900 dark:border-blue-700">
+            <h2 class="text-lg font-semibold text-blue-900 dark:text-blue-100">Total Movies</h2>
+            <p class="text-3xl font-bold text-blue-800 dark:text-blue-200">@Model.TotalMovies</p>
+        </div>
+
+        <div class="p-4 bg-green-100 border border-green-200 rounded-lg dark:bg-green-900 dark:border-green-700">
+            <h2 class="text-lg font-semibold text-green-900 dark:text-green-100">Total Showtimes</h2>
+            <p class="text-3xl font-bold text-green-800 dark:text-green-200">@Model.TotalMovieShowtimes</p>
+        </div>
+
+        <div class="p-4 bg-yellow-100 border border-yellow-200 rounded-lg dark:bg-yellow-900 dark:border-yellow-700">
+            <h2 class="text-lg font-semibold text-yellow-900 dark:text-yellow-100">Total Venues</h2>
+            <p class="text-3xl font-bold text-yellow-800 dark:text-yellow-200">@Model.TotalMovieVenues</p>
+        </div>
+
+        <div class="p-4 bg-red-100 border border-red-200 rounded-lg dark:bg-red-900 dark:border-red-700">
+            <h2 class="text-lg font-semibold text-red-900 dark:text-red-100">Total Users</h2>
+            <p class="text-3xl font-bold text-red-800 dark:text-red-200">@Model.TotalUsers</p>
+        </div>
+    </div>
+</div>

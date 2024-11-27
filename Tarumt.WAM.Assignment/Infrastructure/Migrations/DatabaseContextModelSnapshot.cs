@@ -76,7 +76,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6, 2)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -93,7 +93,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6, 2)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");

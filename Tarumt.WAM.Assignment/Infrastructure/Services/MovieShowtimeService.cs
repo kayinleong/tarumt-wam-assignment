@@ -12,6 +12,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             {
                 return PagedList<MovieShowtime>.ToPagedList(
                     context.Set<MovieShowtime>()
+                        .Include(m => m.Movie)
+                        .ThenInclude(m => m.MovieVenue)
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
@@ -20,6 +22,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                 return PagedList<MovieShowtime>.ToPagedList(
                     context.Set<MovieShowtime>()
                         .Where(m => m.Name.Contains(keyword))
+                        .Include(m => m.Movie)
+                        .ThenInclude(m => m.MovieVenue)
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
@@ -56,11 +60,20 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                 throw new InvalidOperationException("Name already exists");
             }
 
-            var existingMovieVenue = await GetByIdAsync(movieShowtime.Id);
+            var existingMovieShowtime = await GetByIdAsync(movieShowtime.Id);
+            existingMovieShowtime.Name = movieShowtime.Name;
+            existingMovieShowtime.Description = movieShowtime.Description;
+            existingMovieShowtime.Price = movieShowtime.Price;
+            existingMovieShowtime.DiscountRate = movieShowtime.DiscountRate;
+            existingMovieShowtime.StartTime = movieShowtime.StartTime;
+            existingMovieShowtime.EndTime = movieShowtime.EndTime;
+            existingMovieShowtime.AvailableSeats = movieShowtime.AvailableSeats;
+            existingMovieShowtime.Status = movieShowtime.Status;
+            existingMovieShowtime.Movie = movieShowtime.Movie;
 
             try
             {
-                context.MovieShowtimes!.Update(existingMovieVenue);
+                context.MovieShowtimes!.Update(existingMovieShowtime);
                 await context.SaveChangesAsync();
             }
             catch
@@ -71,11 +84,11 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
 
         public async Task DeleteByIdAsync(MovieShowtime movieShowtime)
         {
-            var existingMovieVenue = await GetByIdAsync(movieShowtime.Id);
+            var existingMovieShowtime = await GetByIdAsync(movieShowtime.Id);
 
             try
             {
-                context.MovieShowtimes!.Remove(existingMovieVenue);
+                context.MovieShowtimes!.Remove(existingMovieShowtime);
                 await context.SaveChangesAsync();
             }
             catch

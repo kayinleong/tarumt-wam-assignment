@@ -3,6 +3,7 @@
     public enum UserEnum
     {
         GUEST,
-        ADMIN
+        ADMIN,
+        VOLUNTEER,
     }
 }

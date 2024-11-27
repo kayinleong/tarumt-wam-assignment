@@ -12,8 +12,8 @@ using Tarumt.WAM.Assignment.Infrastructure.Context;
 namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241124115427_Migrate_02")]
-    partial class Migrate_02
+    [Migration("20241126043915_Migrate_01")]
+    partial class Migrate_01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,7 +79,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6, 2)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -96,7 +96,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6, 2)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");

@@ -1,0 +1,88 @@
+﻿@model MovieShowtimeRequest
+@{
+    ViewBag.Title = "Create Movie Showtime - Admin Dashboard";
+    Layout = "_AdminLayout";
+    PagedList<Movie> movies = ViewBag.Movies;
+}
+
+<div class="w-full p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Create Movie Showtime
+    </h5>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessages))
+    {
+        <div class='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4' role='alert'>
+            <strong class='font-bold'>Error!</strong>
+            <br />
+            <span class='block sm:inline'>Please fix the following errors: @ViewBag.ErrorMessages</span>
+        </div>
+    }
+
+    <form asp-controller="MovieVenueShowtime" asp-action="Create" method="post" class="space-y-2">
+        <input asp-for="AvailableSeats" type="hidden" value="[]"/>
+
+        <div>
+            <label asp-for="Name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="Name" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div>
+            <label asp-for="Description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="Description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="Description" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div>
+            <label asp-for="Price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="Price" min="0.00" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="Price" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div>
+            <label asp-for="DiscountRate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="DiscountRate" min="0.00" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="DiscountRate" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div>
+            <label asp-for="StartTime" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="StartTime" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="StartTime" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div>
+            <label asp-for="EndTime" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="EndTime" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="EndTime" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div>
+            <label asp-for="Status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <select asp-for="Status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @foreach (var movieVenue in Enum.GetValues(typeof(MovieShowtimeEnum)))
+                {
+                    <option value="@movieVenue.ToString()">@movieVenue.ToString()</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label asp-for="MovieId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <select asp-for="MovieId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @foreach (var movie in movies)
+                {
+                    <option value="@movie.Id">@movie.Name (@movie.MovieVenue.Location)</option>
+                }
+            </select>
+        </div>
+
+        <div class="mt-10 flex justify-between">
+            <span></span>
+            <button type="submit" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white/50 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Create
+            </button>
+        </div>
+    </form>
+</div>

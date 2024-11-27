@@ -42,11 +42,39 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
                     Type = UserEnum.GUEST,
                     LoginAttempt = 0,
                     SecurityStamps = string.Empty,
-                    CreatedAt = DateTime.Today,
-                    UpdatedAt = DateTime.Today,
-                },
-                CreatedAt = DateTime.Today,
-                UpdatedAt = DateTime.Today,
+                }
+            };
+        }
+
+        public static implicit operator User(UserRequest userRequest)
+        {
+            return new()
+            {
+                Id = userRequest.Id,
+                FirstName = userRequest.FirstName,
+                LastName = userRequest.LastName,
+                Username = userRequest.Username,
+                Email = userRequest.Email,
+                Password = string.Empty,
+                SecurityMeta = new()
+                {
+                    Type = userRequest.Type,
+                    LoginAttempt = 0,
+                    SecurityStamps = string.Empty
+                }
+            };
+        }
+
+        public static explicit operator UserRequest(User user)
+        {
+            return new()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Email = user.Email,
+                Type = user.SecurityMeta.Type
             };
         }
     }

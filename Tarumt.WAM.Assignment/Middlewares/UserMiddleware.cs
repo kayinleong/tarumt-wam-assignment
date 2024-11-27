@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Tarumt.WAM.Assignment.Infrastructure.Services;
 using Tarumt.WAM.Assignment.Infrastructure.Models;
+using Tarumt.WAM.Assignment.Infrastructure.Constants;
 
 namespace Tarumt.WAM.Assignment.Middlewares
 {
@@ -44,6 +45,12 @@ namespace Tarumt.WAM.Assignment.Middlewares
                     {
                         await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                         httpContext.Response.Redirect("/account/login");
+                        return;
+                    }
+
+                    if (httpContext.Request.Path.Value!.StartsWith("/admin") && user.SecurityMeta.Type != UserEnum.ADMIN)
+                    {
+                        httpContext.Response.Redirect("/");
                         return;
                     }
 

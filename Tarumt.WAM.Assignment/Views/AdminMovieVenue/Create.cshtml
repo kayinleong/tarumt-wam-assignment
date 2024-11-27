@@ -1,0 +1,114 @@
+﻿@model MovieVenue
+@{
+    ViewBag.Title = "Create Movie Venue - Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <style>
+        .leaflet-container {
+            border-radius: 7px;
+            height: 400px;
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+}
+
+<div class="w-full p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Create Movie Venue
+    </h5>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessages))
+    {
+        <div class='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4' role='alert'>
+            <strong class='font-bold'>Error!</strong>
+            <br />
+            <span class='block sm:inline'>Please fix the following errors: @ViewBag.ErrorMessages</span>
+        </div>
+    }
+
+    <form asp-controller="MovieVenue" asp-action="Create" method="post">
+        <input asp-for="Coordinate" type="hidden" id="Coordinate" />
+
+        <div>
+            <label asp-for="Location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <input asp-for="Location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <span asp-validation-for="Location" class="text-red-500 font-semibold"></span>
+        </div>
+
+        <div class="mt-5">
+            <label asp-for="Coordinate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+            <div id="map"></div>
+        </div>
+
+        <div class="mt-10 flex justify-between">
+            <span></span>
+            <button type="submit" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white/50 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Create
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        var map = L.map('map').setView([0, 0], 2);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var geocoder = L.Control.geocoder({
+            defaultMarkGeocode: false
+        })
+        .on('markgeocode', function(e) {
+            var bbox = e.geocode.bbox;
+            var poly = L.polygon([
+                [bbox.getSouthWest().lat, bbox.getSouthWest().lng],
+                [bbox.getNorthWest().lat, bbox.getNorthWest().lng],
+                [bbox.getNorthEast().lat, bbox.getNorthEast().lng],
+                [bbox.getSouthEast().lat, bbox.getSouthEast().lng]
+            ]).addTo(map);
+            map.fitBounds(poly.getBounds()); 
+        })
+        .addTo(map);
+
+        map.locate({
+            setView: true,
+            watch: true,
+            maxZoom: 20,
+            enableHighAccuracy: true
+        }).on('locationfound', function(e) {
+            L.marker(e.latlng).addTo(map)
+                .bindPopup("You are here!").openPopup();
+        }).on('locationerror', function(e) {
+            alert("Location access has been denied.");
+        });
+
+        var currentMarker;
+
+        map.on('click', function(e) {
+            document.getElementById('Coordinate').value = e.latlng;
+
+            if (currentMarker) {
+                map.removeLayer(currentMarker);
+            }
+
+            currentMarker = L.marker(e.latlng).addTo(map)
+                .bindPopup("Selected Location: " + e.latlng.toString())
+                .openPopup();
+        });
+
+    </script>
+}
