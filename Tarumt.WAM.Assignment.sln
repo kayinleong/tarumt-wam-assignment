@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarumt.WAM.Assignment", "Tarumt.WAM.Assignment\Tarumt.WAM.Assignment.csproj", "{8F38C408-91A2-4DF0-A697-7F7668BAB46C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarumt.WAM.Assignment.ERD", "Tarumt.WAM.Assignment.ERD\Tarumt.WAM.Assignment.ERD.csproj", "{214509F5-C0E7-482C-808A-2FBB338D8654}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8F38C408-91A2-4DF0-A697-7F7668BAB46C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F38C408-91A2-4DF0-A697-7F7668BAB46C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F38C408-91A2-4DF0-A697-7F7668BAB46C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214509F5-C0E7-482C-808A-2FBB338D8654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214509F5-C0E7-482C-808A-2FBB338D8654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214509F5-C0E7-482C-808A-2FBB338D8654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214509F5-C0E7-482C-808A-2FBB338D8654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
