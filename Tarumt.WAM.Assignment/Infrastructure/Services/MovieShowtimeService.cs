@@ -13,8 +13,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                 return PagedList<MovieShowtime>.ToPagedList(
                     context.Set<MovieShowtime>()
                         .Include(m => m.Movie)
-                        .ThenInclude(m => m.MovieVenue)
-                        .OrderBy(m => m.CreatedAt),
+                        .Include(m => m.MovieVenue)
+                        .OrderByDescending(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
             else
@@ -23,25 +23,27 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                     context.Set<MovieShowtime>()
                         .Where(m => m.Name.Contains(keyword))
                         .Include(m => m.Movie)
-                        .ThenInclude(m => m.MovieVenue)
-                        .OrderBy(m => m.CreatedAt),
+                        .Include(m => m.MovieVenue)
+                        .OrderByDescending(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
+        }
+
+        public PagedList<MovieShowtime> GetTop6LatestAsync()
+        {
+            return GetAllAsync(1, 6, string.Empty);
         }
 
         public async Task<MovieShowtime> GetByIdAsync(string id)
         {
             return await context.MovieShowtimes!
+                .Include(m => m.Movie)
+                .Include(m => m.MovieVenue)
                 .FirstAsync(m => m.Id == id) ?? throw new InvalidOperationException("MovieShowtime not found");
         }
 
         public async Task CreateAsync(MovieShowtime movieShowtime)
         {
-            if (context.MovieShowtimes!.Any(m => m.Name == movieShowtime.Name))
-            {
-                throw new InvalidOperationException("Name already exists");
-            }
-
             try
             {
                 await context.MovieShowtimes!.AddAsync(movieShowtime);
@@ -55,11 +57,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
 
         public async Task UpdateByIdAsync(MovieShowtime movieShowtime)
         {
-            if (context.MovieShowtimes!.Any(m => m.Name == movieShowtime.Name && m.Id != movieShowtime.Id))
-            {
-                throw new InvalidOperationException("Name already exists");
-            }
-
             var existingMovieShowtime = await GetByIdAsync(movieShowtime.Id);
             existingMovieShowtime.Name = movieShowtime.Name;
             existingMovieShowtime.Description = movieShowtime.Description;
@@ -70,6 +67,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             existingMovieShowtime.AvailableSeats = movieShowtime.AvailableSeats;
             existingMovieShowtime.Status = movieShowtime.Status;
             existingMovieShowtime.Movie = movieShowtime.Movie;
+            existingMovieShowtime.MovieVenue = movieShowtime.MovieVenue;
 
             try
             {

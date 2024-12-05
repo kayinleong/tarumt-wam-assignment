@@ -1,0 +1,53 @@
+﻿@model Movie
+@{
+    ViewData["Title"] = "Movie";
+}
+
+<div class="fixed container mx-auto top-0 left-0 right-0 mt-20 -z-20">
+    <div class="mt-20 mx-auto w-full">
+        <div class="grid grid-cols-2 opacity-50">
+            <div class="ml-[25%] h-60 w-[400px] bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400 blur-3xl"></div>
+            <div class="mt-[250px] h-60 w-[400px] rounded-full bg-gradient-to-r from-purple-200 to-purple-600 blur-3xl"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 my-20">
+    <div class="flex flex-col md:flex-row gap-10">
+        <div class="w-full md:w-1/3 flex-shrink-0">
+            <img src="/files/movie/@Model.ImageUrl" alt="@Model.Name" class="w-full h-auto rounded-lg shadow-lg" />
+        </div>
+
+        <div class="w-full md:w-2/3 flex flex-col">
+            <h1 class="text-4xl font-bold mb-4">@Model.Name</h1>
+            <p class="text-lg mb-6">@Model.Description</p>
+
+            <h2 class="text-2xl font-semibold mb-4">Showtimes</h2>
+            <div class="overflow-auto rounded-lg shadow-md">
+                <table class="w-full text-left text-sm text-gray-500">
+                    <thead class="bg-gray-200 text-gray-700 uppercase text-xs">
+                        <tr>
+                            <th scope="col" class="py-3 px-4">Venue</th>
+                            <th scope="col" class="py-3 px-4">Date</th>
+                            <th scope="col" class="py-3 px-4">Time</th>
+                            <th scope="col" class="py-3 px-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var showtime in Model.MovieShowtimes)
+                        {
+                            <tr class="bg-white border-b hover:bg-gray-100">
+                                <td class="py-4 px-4">@showtime.MovieVenue.Location</td>
+                                <td class="py-4 px-4">@showtime.StartTime.ToString("yyyy-MM-dd")</td>
+                                <td class="py-4 px-4">@showtime.EndTime.ToString("hh:mm tt")</td>
+                                <td class="py-4 px-4">
+                                    <a asp-controller="MovieShowtime" asp-action="GetById" asp-route-id="@showtime.Id" class="font-bold hover:text-blue-500">Order Now</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

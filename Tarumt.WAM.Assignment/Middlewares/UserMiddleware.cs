@@ -48,7 +48,7 @@ namespace Tarumt.WAM.Assignment.Middlewares
                         return;
                     }
 
-                    if (httpContext.Request.Path.Value!.StartsWith("/admin") && user.SecurityMeta.Type != UserEnum.ADMIN)
+                    if (httpContext.Request.Path.Value!.StartsWith("/admin") && user.Type != UserEnum.ADMIN)
                     {
                         httpContext.Response.Redirect("/");
                         return;
@@ -56,7 +56,6 @@ namespace Tarumt.WAM.Assignment.Middlewares
 
                     httpContext.Items.Add("User", user);
                     httpContext.Items.Add("UserTickets", user.Tickets);
-                    httpContext.Items.Add("UserSecurityMeta", user.SecurityMeta);
                 }
             }
             catch { }

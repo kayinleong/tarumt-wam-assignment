@@ -1,0 +1,88 @@
+﻿@using System.Text.Json
+@using Microsoft.AspNetCore.Html
+@model MovieShowtimeAddToCartRequest
+@{
+    ViewData["Title"] = "Confirm Order";
+    MovieShowtime movieShowtime = ViewBag.MovieShowtime;
+    var seats = JsonSerializer.Deserialize<List<string>>(Model.SelectedSeat)!;
+}
+
+<div class="fixed container mx-auto top-0 left-0 right-0 mt-20 -z-20">
+    <div class="mt-20 mx-auto w-full">
+        <div class="grid grid-cols-2 opacity-50">
+            <div class="ml-[25%] h-60 w-[400px] bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400 blur-3xl"></div>
+            <div class="mt-[250px] h-60 w-[400px] rounded-full bg-gradient-to-r from-purple-200 to-purple-600 blur-3xl"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto my-20 px-4">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+            <div class="flex flex-wrap items-center mb-4">
+                <div class="w-full">
+                    <h1 class="text-2xl font-semibold">@movieShowtime.Name</h1>
+                    <p class="text-gray-700 mb-4">@movieShowtime.Description</p>
+                    <p class="text-gray-500">Time: @movieShowtime.StartTime - @movieShowtime.EndTime</p>
+                    <p class="text-gray-500">Venue: @movieShowtime.MovieVenue.Location</p>
+                    <p class="text-lg font-semibold mt-4">Price per Seat: @string.Format("RM{0:F2}", movieShowtime.FinalPrice)</p>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h2 class="text-lg font-semibold">Selected Seats</h2>
+                <ul class="list-disc list-inside">
+                    @foreach (var seat in seats)
+                    {
+                        <li>Seat: @seat</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-xl font-bold">Total Amount: @string.Format("RM{0:F2}", seats.Count() * movieShowtime.FinalPrice)</h2>
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
+                <span></span>
+                <button type="button" id="checkout-button" class="btn btn-primary" data-modal-toggle="paymentModal">Confirm and Pay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('@ViewBag.PublishableKey');
+
+        var checkoutButton = document.getElementById('checkout-button');
+
+        checkoutButton.addEventListener('click', function () {
+            fetch('/ticket/confirm_order/', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: "@Model.Id",
+                    selected_seat: `@(new HtmlString(Model.SelectedSeat))`
+                })
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (sessionId) {
+                return stripe.redirectToCheckout({ sessionId: sessionId.id });
+            })
+            .then(function (result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+}

@@ -18,8 +18,8 @@ namespace Tarumt.WAM.Assignment.Extensions
                     options.ExpireTimeSpan = TimeSpan.FromMilliseconds(cookieLifetime);
                     options.Cookie.MaxAge = options.ExpireTimeSpan;
                     options.Cookie.Name = "token";
-                    options.LoginPath = "/auth/login";
-                    options.LogoutPath = "/auth/logout";
+                    options.LoginPath = "/account/login";
+                    options.LogoutPath = "/account/logout";
                     options.ReturnUrlParameter = "returnUrl";
                 });
         }

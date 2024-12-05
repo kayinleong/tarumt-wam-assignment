@@ -16,7 +16,7 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         [HttpGet("/admin/movies/")]
         public ActionResult Index(int pageNumber = 1, int pageSize = 10, string keyword = "")
         {
-            var movies = movieService.GetAllAsync(pageNumber, pageSize, keyword);
+            var movies = movieService.GetAll(pageNumber, pageSize, keyword);
 
             return View(movies);
         }
@@ -24,14 +24,13 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         [HttpGet("/admin/movies/create/")]
         public ActionResult Create()
         {
-            ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
+            
             return View();
         }
 
         [HttpGet("/admin/movies/{id}/")]
         public async Task<ActionResult> Detail(string id)
         {
-            ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
             var movie = await movieService.GetByIdAsync(id);
             return View((MovieRequest) movie);
         }
@@ -58,31 +57,16 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         {
             if (movieRequest.Image == null)
             {
-                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 ViewBag.ErrorMessages = "Please upload an image";
                 return View(movieRequest);
             }
 
             if (!ModelState.IsValid)
             {
-                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 return View(movieRequest);
             }
 
             Movie movie = movieRequest;
-
-            try
-            {
-                var movieVenue = await movieVenueService.GetByIdAsync(movieRequest.MovieVenueId);
-                movie.MovieVenue = movieVenue;
-            }
-            catch (Exception e)
-            {
-                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
-                ViewBag.ErrorMessages = e.Message;
-                return View(movieRequest);
-            }
-
             string filename = movieRequest.Image.FileName;
             string[] filenameArray = filename.Split(".");
             string uniqueId = Guid.NewGuid().ToString();
@@ -116,18 +100,6 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
 
             Movie movie = movieRequest;
             movie.Id = id;
-
-            try
-            {
-                var movieVenue = await movieVenueService.GetByIdAsync(movieRequest.MovieVenueId);
-                movie.MovieVenue = movieVenue;
-            }
-            catch (Exception e)
-            {
-                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
-                ViewBag.ErrorMessages = e.Message;
-                return View(movieRequest);
-            }
 
             if (movieRequest.Image != null)
             {

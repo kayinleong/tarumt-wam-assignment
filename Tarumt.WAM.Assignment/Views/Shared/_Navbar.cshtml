@@ -36,13 +36,16 @@
                         <span class='block text-sm font-medium text-gray-500 truncate dark:text-gray-400'>@Model.Email</span>
                     </div>
                     <ul class='py-2' aria-labelledby='user-menu-button'>
-                        @if (Model.SecurityMeta.Type == UserEnum.ADMIN)
+                        @if (Model.Type == UserEnum.ADMIN)
                         {
                             <li>
                                 <a href='/admin' class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Admin Dashboard</a>
                             </li>
                         }
 
+                        <li>
+                            <a href='/cart' class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Cart</a>
+                        </li>
                         <li>
                             <a href='/ticket' class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Tickets</a>
                         </li>
@@ -84,8 +87,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/movie_showtimes" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                        Movie Showtimes
+                    <a asp-controller="Movie" asp-action="Index" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        Movies
                     </a>
                 </li>
             </ul>

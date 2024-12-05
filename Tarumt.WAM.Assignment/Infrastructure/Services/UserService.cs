@@ -16,8 +16,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             {
                 return PagedList<User>.ToPagedList(
                     context.Set<User>()
-                        .Include(m => m.SecurityMeta)
-                        .Where(m => m.SecurityMeta.Type == status)
+                        .Where(m => m.Type == status)
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
@@ -25,8 +24,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             {
                 return PagedList<User>.ToPagedList(
                     context.Set<User>()
-                        .Include(m => m.SecurityMeta)
-                        .Where(m => m.SecurityMeta.Type == status)
+                        .Where(m => m.Type == status)
                         .Where(m => m.Username.Contains(keyword))
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
@@ -36,7 +34,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         public async Task<User> GetByIdAsync(string id)
         {
             return await context.Users!
-                .Include(m => m.SecurityMeta)
                 .Include(m => m.Tickets)
                 .FirstAsync(m => m.Id == id) ?? throw new InvalidOperationException("User not found");
         }
@@ -44,7 +41,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         public async Task<User> GetByUsernameAsync(string username)
         {
             return await context.Users!
-                .Include(m => m.SecurityMeta)
                 .Include(m => m.Tickets)
                 .FirstAsync(m => m.Username == username) ?? throw new InvalidOperationException("User not found");
         }
@@ -52,7 +48,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         public async Task<User> GetByEmailAsync(string email)
         {
             return await context.Users!
-                .Include(m => m.SecurityMeta)
                 .Include(m => m.Tickets)
                 .FirstAsync(m => m.Email == email) ?? throw new InvalidOperationException("User not found");
         }
@@ -100,7 +95,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             existingUser.Username = user.Username;
             existingUser.Email = user.Email;
             existingUser.UpdatedAt = DateTime.Today;
-            existingUser.SecurityMeta.Type = user.SecurityMeta.Type;
+            existingUser.Type = user.Type;
 
             try
             {
@@ -132,14 +127,14 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         {
             if (passwordHasher.VerifyHashedPassword(user, user.Password, rawPassword) == PasswordVerificationResult.Failed)
             {
-                user.SecurityMeta.LoginAttempt += 1;
+                user.LoginAttempt += 1;
                 await UpdateByIdAsync(user);
 
                 throw new InvalidOperationException("Invalid login credentials");
             }
             else
             {
-                user.SecurityMeta.LoginAttempt = 0;
+                user.LoginAttempt = 0;
                 await UpdateByIdAsync(user);
             }
         }

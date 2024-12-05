@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Options;
+using Stripe;
 using Tarumt.WAM.Assignment.Extensions;
+using Tarumt.WAM.Assignment.Infrastructure.Models;
 using Tarumt.WAM.Assignment.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,7 @@ builder.Services.AddAuthenticationConfig(builder.Configuration, builder.Environm
 builder.Services.AddMvcConfig(builder.Configuration, builder.Environment);
 builder.Services.AddResponseCompressionConfig();
 builder.Services.AddServiceConfig();
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 var app = builder.Build();
 
@@ -27,5 +30,7 @@ app.UseRequestLocalization(app.Services.GetService<IOptions<RequestLocalizationO
 app.MapControllerRoute(
     "areaRoute",
     "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["SecretKey"];
 
 await app.RunAsync();

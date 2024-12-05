@@ -14,9 +14,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
         [Required]
         public required string ImageUrl { get; set; }
 
-        [Required]
-        public required MovieVenue MovieVenue { get; set; }
-
         public List<MovieShowtime> MovieShowtimes { get; set; } = [];
 
         public static implicit operator Movie(MovieRequest movieCreateRequest)
@@ -26,7 +23,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
                 Name = movieCreateRequest.Name,
                 Description = movieCreateRequest.Description,
                 ImageUrl =  null,
-                MovieVenue = null
             };
         }
 
@@ -37,8 +33,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
                 Id = movie.Id,
                 Name = movie.Name,
                 Description = movie.Description,
-                MovieVenueId = movie.MovieVenue.Id
             };
         }
-    }
+    } 
 }

@@ -1,0 +1,36 @@
+﻿@model PagedList<Movie>
+@{
+    ViewData["Title"] = "All Movies";
+}
+
+<div class="fixed container mx-auto top-0 left-0 right-0 mt-20 -z-20">
+    <div class="mt-20 mx-auto w-full">
+        <div class="grid grid-cols-2 opacity-50">
+            <div class="ml-[25%] h-60 w-[400px] bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400 blur-3xl"></div>
+            <div class="mt-[250px] h-60 w-[400px] rounded-full bg-gradient-to-r from-purple-200 to-purple-600 blur-3xl"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 my-20">
+    <h2 class="text-4xl font-bold tracking-wide text-gray-900 dark:text-white mb-8">All Movies</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach (var movie in Model)
+        {
+            <div class="relative bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 group overflow-hidden">
+                <img class="rounded-lg w-full h-full w-full object-cover" src="/files/movie/@movie.ImageUrl" alt="@movie.Name" />
+                <div class="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg p-5 text-center">
+                    <h5 class="text-2xl font-bold tracking-tight text-white mb-2">@movie.Name</h5>
+                    <p class="font-normal text-gray-300 mb-4">@movie.Description</p>
+                    <a href="/movies/@movie.Id" class="inline-flex items-center text-blue-300 hover:underline">
+                        View Details
+                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                            <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

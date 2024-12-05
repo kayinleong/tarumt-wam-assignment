@@ -37,5 +37,9 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Requests
         [Required]
         [Display(Name = "Movie")]
         public required string MovieId { get; set; }
+
+        [Required]
+        [Display(Name = "Movie Venue")]
+        public required string MovieVenueId { get; set; }
     }
 }

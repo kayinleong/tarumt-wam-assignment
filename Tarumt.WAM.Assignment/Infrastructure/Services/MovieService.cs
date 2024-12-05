@@ -6,14 +6,13 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
     public class MovieService(DatabaseContext context)
     {
-        public PagedList<Movie> GetAllAsync(int pageNumber, int pageSize, string keyword)
+        public PagedList<Movie> GetAll(int pageNumber, int pageSize, string keyword)
         {
             if (string.IsNullOrEmpty(keyword))
             {
                 return PagedList<Movie>.ToPagedList(
                     context.Set<Movie>()
-                        .Include(m => m.MovieVenue)
-                        .OrderBy(m => m.CreatedAt),
+                        .OrderByDescending(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
             else
@@ -21,15 +20,21 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                 return PagedList<Movie>.ToPagedList(
                     context.Set<Movie>()
                         .Where(m => m.Name.Contains(keyword))
-                        .Include(m => m.MovieVenue)
-                        .OrderBy(m => m.CreatedAt),
+                        .OrderByDescending(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
+        }
+
+        public PagedList<Movie> GetTop5LatestAsync()
+        {
+            return GetAll(1, 5, string.Empty);
         }
 
         public async Task<Movie> GetByIdAsync(string id)
         {
             return await context.Movies!
+                .Include(m => m.MovieShowtimes)
+                .ThenInclude(m => m.MovieVenue)
                 .FirstAsync(m => m.Id == id) ?? throw new InvalidOperationException("Movie not found");
         }
 
@@ -61,7 +66,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
             var existingMovie = await GetByIdAsync(movie.Id);
             existingMovie.Name = movie.Name;
             existingMovie.Description = movie.Description;
-            existingMovie.MovieVenue = movie.MovieVenue;
 
             if (!string.IsNullOrEmpty(movie.ImageUrl))
             {

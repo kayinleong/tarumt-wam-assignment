@@ -1,14 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
+using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Controllers
 {
-    [Route("/")]
-    public class HomeController : Controller
+    public class HomeController(MovieShowtimeService movieShowtimeService) : Controller
     {
         [HttpGet("/")]
         public ActionResult Index()
         {
-            return View();
+            var movie = movieShowtimeService.GetTop6LatestAsync();
+
+            return View(movie);
         }
     }
 }

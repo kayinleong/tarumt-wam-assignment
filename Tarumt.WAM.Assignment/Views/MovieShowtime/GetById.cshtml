@@ -1,0 +1,118 @@
+﻿@using Microsoft.AspNetCore.Html
+@model MovieShowtimeAddToCartRequest
+@{
+    ViewData["Title"] = "Movie Showtime";
+    MovieShowtime movieShowtime = ViewBag.MovieShowtime;
+}
+
+<div class="fixed container mx-auto top-0 left-0 right-0 mt-20 -z-20">
+    <div class="mt-20 mx-auto w-full">
+        <div class="grid grid-cols-2 opacity-50">
+            <div class="ml-[25%] h-60 w-[400px] bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400 blur-3xl"></div>
+            <div class="mt-[250px] h-60 w-[400px] rounded-full bg-gradient-to-r from-purple-200 to-purple-600 blur-3xl"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 my-20">
+    <div class="flex flex-col md:flex-row gap-10">
+        <div class="w-full md:w-1/3 flex-shrink-0">
+            <img src="/files/movie/@movieShowtime.Movie.ImageUrl" alt="@movieShowtime.Movie.Name" class="w-full h-auto rounded-lg shadow-lg" />
+        </div>
+
+        <div class="w-full md:w-2/3 flex flex-col">
+            <h1 class="text-4xl font-bold mb-4">@movieShowtime.Movie.Name</h1>
+            <p class="text-lg mb-6">@movieShowtime.Movie.Description</p>
+
+            <h2 class="text-2xl font-semibold mb-4">Showtime Details</h2>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-10">
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-md mb-1">Price</h4>
+                            <p class="text-gray-700">@string.Format("${0:F2}", movieShowtime.FinalPrice)</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-md mb-1">Showtime</h4>
+                            <p class="text-gray-700">@movieShowtime.StartTime.ToString("dddd, MMM dd, yyyy hh:mm tt") - @movieShowtime.EndTime.ToString("hh:mm tt")</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-md mb-1">Venue</h4>
+                            <p class="text-gray-700">@movieShowtime.MovieVenue.Location</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-md mb-1">Status</h4>
+                            <p class="text-gray-700">@movieShowtime.Status.ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-4">Available Seats (Price per seat: @string.Format("RM{0:F2}", movieShowtime.FinalPrice))</h2>
+            <div class="text-left font-semibold text-lg">Total Price: RM<span id="totalPrice">0.00</span></div>
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-10">
+                <div class="p-6">
+                    <div class="text-center mb-4">
+                        <div class="w-full h-10 bg-gray-800 text-white flex items-center justify-center rounded-lg">
+                            Screen
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-9 gap-4 mt-6">
+                        @for (int i = 0; i < 40; i++)
+                        {
+                            var seatNumber = (i + 1).ToString();
+                            var isAvailable = movieShowtime.AvailableSeats.Contains(seatNumber);
+                            if (i % 8 == 4)
+                            {
+                                <div class="col-span-1"></div>
+                            }
+                            <div class="@(!isAvailable ? "bg-red-500" : "bg-indigo-500 cursor-pointer hover:bg-indigo-600") text-white text-center font-bold p-1 rounded-lg seat"
+                            @(isAvailable ? new HtmlString($"onclick=\"toggleSeatSelection('{seatNumber}')\"") : HtmlString.Empty)>
+                                @seatNumber
+                            </div>
+                        }
+                    </div>
+
+                    <form asp-controller="Ticket" asp-action="ConfirmOrder" method="get" class="flex justify-between mt-10">
+                        <input asp-for="Id" type="hidden" value="@movieShowtime.Id" />
+                        <input asp-for="SelectedSeat" type="hidden" />
+
+                        <span></span>
+                        <button type="submit" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Order Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let selectedSeat = [];
+
+        function updateTotalPrice() {
+            const totalPrice = selectedSeat.length * @movieShowtime.FinalPrice;
+            document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+        }
+
+        function toggleSeatSelection(seatNumber) {
+            const seatIndex = selectedSeat.indexOf(seatNumber);
+            const seatElement = document.querySelector(`[onclick="toggleSeatSelection('${seatNumber}')"]`);
+
+            if (seatIndex === -1) {
+                selectedSeat.push(seatNumber);
+                seatElement.classList.remove('bg-indigo-500');
+                seatElement.classList.add('bg-green-500');
+            } else {
+                selectedSeat.splice(seatIndex, 1);
+                seatElement.classList.remove('bg-green-500');
+                seatElement.classList.add('bg-indigo-500');
+            }
+
+            updateTotalPrice();
+            document.querySelector('input[name="SelectedSeat"]').value = JSON.stringify(selectedSeat);
+        }
+    </script>
+}

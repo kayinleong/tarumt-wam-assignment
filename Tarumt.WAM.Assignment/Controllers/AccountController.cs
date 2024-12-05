@@ -43,7 +43,7 @@ namespace Tarumt.WAM.Assignment.Controllers
             try
             {
                 var existingUser = await userService.GetByUsernameAsync(userLoginRequest.Username);
-                if (existingUser.SecurityMeta.LoginAttempt > 3)
+                if (existingUser.LoginAttempt > 3)
                 {
                     ViewBag.ErrorMessages = "You have exceeded login attempts, please submit a support ticket for help.";
                     userLoginRequest.Password = string.Empty;

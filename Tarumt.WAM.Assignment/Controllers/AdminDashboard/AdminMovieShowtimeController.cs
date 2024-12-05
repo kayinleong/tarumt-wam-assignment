@@ -7,7 +7,10 @@ using Tarumt.WAM.Assignment.Infrastructure.Services;
 namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
 {
     [Authorize]
-    public class AdminMovieShowtimeController(MovieService movieService, MovieShowtimeService movieShowtimeService) : Controller
+    public class AdminMovieShowtimeController(
+        MovieService movieService, 
+        MovieVenueService movieVenueService, 
+        MovieShowtimeService movieShowtimeService) : Controller
     {
         [HttpGet("/admin/movie_showtimes/")]
         public ActionResult Index(int pageNumber = 1, int pageSize = 10, string keyword = "")
@@ -20,15 +23,19 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         [HttpGet("/admin/movie_showtimes/create/")]
         public ActionResult Create()
         {
-            ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+            ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+            ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
+
             return View();
         }
 
         [HttpGet("/admin/movie_showtimes/{id}/")]
         public async Task<ActionResult> Detail(string id)
         {
-            ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+            ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+            ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
             var movieShowtime = await movieShowtimeService.GetByIdAsync(id);
+
             return View((MovieShowtimeRequest)movieShowtime);
         }
 
@@ -54,11 +61,24 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 return View(movieShowtimeRequest);
             }
 
             MovieShowtime movieShowtime = movieShowtimeRequest;
+            try
+            {
+                var movieVenue = await movieVenueService.GetByIdAsync(movieShowtimeRequest.MovieVenueId);
+                movieShowtime.MovieVenue = movieVenue;
+            }
+            catch (Exception e)
+            {
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.ErrorMessages = e.Message;
+                return View(movieShowtimeRequest);
+            }
+
             try
             {
                 var movie = await movieService.GetByIdAsync(movieShowtimeRequest.MovieId);
@@ -66,7 +86,8 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             }
             catch (Exception e)
             {
-                ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 ViewBag.ErrorMessages = e.Message;
                 return View(movieShowtimeRequest);
             }
@@ -77,7 +98,8 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             }
             catch (Exception e)
             {
-                ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 ViewBag.ErrorMessages = e.Message;
                 return View(movieShowtimeRequest);
             }
@@ -91,7 +113,8 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 return View(movieShowtimeRequest);
             }
 
@@ -100,12 +123,25 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
 
             try
             {
+                var movieVenue = await movieVenueService.GetByIdAsync(movieShowtimeRequest.MovieVenueId);
+                movieShowtime.MovieVenue = movieVenue;
+            }
+            catch (Exception e)
+            {
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.ErrorMessages = e.Message;
+                return View(movieShowtimeRequest);
+            }
+
+            try
+            {
                 var movie = await movieService.GetByIdAsync(movieShowtimeRequest.MovieId);
                 movieShowtime.Movie = movie;
             }
             catch (Exception e)
             {
-                ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 ViewBag.ErrorMessages = e.Message;
                 return View(movieShowtimeRequest);
             }
@@ -116,7 +152,8 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             }
             catch (Exception e)
             {
-                ViewBag.Movies = movieService.GetAllAsync(1, 9999, string.Empty);
+                ViewBag.Movies = movieService.GetAll(1, 9999, string.Empty);
+                ViewBag.MovieVenues = movieVenueService.GetAllAsync(1, 9999, string.Empty);
                 ViewBag.ErrorMessages = e.Message;
                 return View(movieShowtimeRequest);
             }

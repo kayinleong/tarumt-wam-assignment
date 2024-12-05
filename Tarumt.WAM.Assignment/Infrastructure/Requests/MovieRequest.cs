@@ -13,9 +13,5 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Requests
         public required string Description { get; set; }
         
         public IFormFile? Image { get; set; }
-
-        [Required]
-        [Display(Name = "Movie Venue")]
-        public required string MovieVenueId { get; set; }
     }
 }

@@ -22,7 +22,13 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
         public required string Password { get; set; }
 
         [Required]
-        public required UserSecurityMeta SecurityMeta { get; set; }
+        public required UserEnum Type { get; set; } = UserEnum.GUEST;
+
+        [Required]
+        public required int LoginAttempt { get; set; } = 0;
+
+        [Required]
+        public required string SecurityStamps { get; set; }
 
         public List<Ticket> Tickets { get; set; } = [];
 
@@ -37,12 +43,9 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
                 Username = userCreateRequest.Username,
                 Email = userCreateRequest.Email,
                 Password = userCreateRequest.Password,
-                SecurityMeta = new()
-                {
-                    Type = UserEnum.GUEST,
-                    LoginAttempt = 0,
-                    SecurityStamps = string.Empty,
-                }
+                Type = UserEnum.GUEST,
+                LoginAttempt = 0,
+                SecurityStamps = string.Empty,
             };
         }
 
@@ -56,12 +59,9 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
                 Username = userRequest.Username,
                 Email = userRequest.Email,
                 Password = string.Empty,
-                SecurityMeta = new()
-                {
-                    Type = userRequest.Type,
-                    LoginAttempt = 0,
-                    SecurityStamps = string.Empty
-                }
+                Type = userRequest.Type,
+                LoginAttempt = 0,
+                SecurityStamps = string.Empty,
             };
         }
 
@@ -74,7 +74,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
                 LastName = user.LastName,
                 Username = user.Username,
                 Email = user.Email,
-                Type = user.SecurityMeta.Type
+                Type = user.Type
             };
         }
     }

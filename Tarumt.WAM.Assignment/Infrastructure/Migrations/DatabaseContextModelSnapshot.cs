@@ -39,10 +39,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MovieVenueId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -52,8 +48,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MovieVenueId");
 
                     b.ToTable("Movies");
                 });
@@ -86,6 +80,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MovieVenueId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -198,40 +193,12 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("LoginAttempt")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecurityMetaId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SecurityMetaId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.UserSecurityMeta", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LoginAttempt")
-                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamps")
                         .IsRequired()
@@ -244,20 +211,13 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("UserSecurityMetas");
-                });
-
-            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.Movie", b =>
-                {
-                    b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.MovieVenue", "MovieVenue")
-                        .WithMany()
-                        .HasForeignKey("MovieVenueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MovieVenue");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.MovieShowtime", b =>
@@ -268,11 +228,15 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.MovieVenue", null)
+                    b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.MovieVenue", "MovieVenue")
                         .WithMany("MovieShowtimes")
-                        .HasForeignKey("MovieVenueId");
+                        .HasForeignKey("MovieVenueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Movie");
+
+                    b.Navigation("MovieVenue");
                 });
 
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.Ticket", b =>
@@ -292,17 +256,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                     b.Navigation("MovieShowtime");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.User", b =>
-                {
-                    b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.UserSecurityMeta", "SecurityMeta")
-                        .WithMany()
-                        .HasForeignKey("SecurityMetaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SecurityMeta");
                 });
 
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.Movie", b =>

@@ -13,7 +13,6 @@ namespace Tarumt.WAM.Assignment.Extensions
             services.AddHostedService<DatabaseHostedService>();
 
             services.AddScoped<UserService>();
-            services.AddScoped<UserSecurityMetaService>();
             services.AddScoped<MovieService>();
             services.AddScoped<MovieShowtimeService>();
             services.AddScoped<MovieVenueService>();

@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Get Movie - Admin Dashboard";
     Layout = "_AdminLayout";
-    PagedList<MovieVenue> movieVenues = ViewBag.MovieVenues;
 }
 
 <div class="w-full p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -46,16 +45,6 @@
                     <input asp-for="Image" id="dropzone-file" type="file" class="hidden" />
                 </label>
             </div>
-        </div>
-
-        <div>
-            <label asp-for="MovieVenueId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-            <select asp-for="MovieVenueId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                @foreach (var movieVenue in movieVenues)
-                {
-                    <option value="@movieVenue.Id">@movieVenue.Location</option>
-                }
-            </select>
         </div>
 
         <div class="mt-10 flex justify-between">

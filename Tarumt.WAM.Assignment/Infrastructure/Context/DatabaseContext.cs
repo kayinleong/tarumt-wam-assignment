@@ -7,8 +7,6 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Context
     {
         public DbSet<User>? Users { get; set; }
 
-        public DbSet<UserSecurityMeta>? UserSecurityMetas { get; set; }
-
         public DbSet<Movie>? Movies { get; set; }
 
         public DbSet<MovieShowtime>? MovieShowtimes { get; set; }
