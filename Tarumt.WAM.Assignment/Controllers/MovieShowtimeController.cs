@@ -14,7 +14,7 @@ namespace Tarumt.WAM.Assignment.Controllers
                 return View();
             }
             catch
-            {
+    {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
