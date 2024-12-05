@@ -10,7 +10,7 @@ using System.Text.Json;
 namespace Tarumt.WAM.Assignment.Controllers
 {
     [ApiController]
-    public class TicketApiController(MovieShowtimeService movieShowtimeService, TicketService ticketService, IOptions<StripeSettings> stripeSettings) : ControllerBase
+    public class TicketApiController(MovieShowtimeService movieShowtimeService) : ControllerBase
     {
         [HttpPost("/ticket/confirm_order/")]
         public async Task<IActionResult> CreateCheckoutSession(MovieShowtimeAddToCartRequest movieShowtimeAddToCartRequest)
