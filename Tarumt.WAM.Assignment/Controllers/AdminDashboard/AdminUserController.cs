@@ -26,6 +26,33 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             return View((UserRequest)user);
         }
 
+        [HttpGet("/admin/users/{id}/block/")]
+        public async Task<ActionResult> Block(string id)
+        {
+            User user = null;
+            try
+            {
+                user = await userService.GetByIdAsync(id);
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index), "AdminUser");
+            }
+
+            try
+            {
+                user.LoginAttempt = 4;
+                await userService.UpdateByIdAsync(user);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessages = e.Message;
+                return RedirectToAction(nameof(Index), "AdminUser");
+            }
+
+            return RedirectToAction(nameof(Index), "AdminUser");
+        }
+
         [HttpGet("/admin/users/{id}/unblock/")]
         public async Task<ActionResult> Unblock(string id)
         {

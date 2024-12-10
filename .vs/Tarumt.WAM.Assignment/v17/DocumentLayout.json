@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\views\\adminuser\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\views\\adminuser\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\controllers\\admindashboard\\adminusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\controllers\\admindashboard\\adminusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\views\\adminmovie\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\views\\adminmovie\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,28 +66,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AdminUserController.cs",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBUAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T14:20:44.716Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Detail.cshtml",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\AdminUser\\Detail.cshtml",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Views\\AdminUser\\Detail.cshtml",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\AdminUser\\Detail.cshtml",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Views\\AdminUser\\Detail.cshtml",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEUAAAAAAAAAAAAAAA==",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\AdminMovie\\Create.cshtml",
+              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Views\\AdminMovie\\Create.cshtml",
+              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\AdminMovie\\Create.cshtml",
+              "RelativeToolTip": "Tarumt.WAM.Assignment\\Views\\AdminMovie\\Create.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACUAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-10T14:20:24.516Z",
+              "WhenOpened": "2024-12-10T14:30:47.631Z",
               "EditorCaption": ""
             }
           ]
