@@ -65,4 +65,24 @@
             </div>
         </div>
     </form>
+
+    <hr class="my-10" />
+
+    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Security
+    </h5>
+    <div>
+        <span class="font-semibold">Login Attempt:</span> @Model.LoginAttempt
+        <br />
+        <span class="font-semibold">Login Block:</span> @(Model.LoginAttempt > 3 ? "Yes" : "No")
+
+        <div class="mt-10 flex justify-between">
+            <span></span>
+            <div class="space-x-2">
+                <a asp-controller="AdminUser" asp-action="Unblock" asp-route-id="@Model.Id" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white/50 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                    Unblock
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

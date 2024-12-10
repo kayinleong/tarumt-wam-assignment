@@ -3,19 +3,19 @@ using Stripe.Checkout;
 using Stripe;
 using Tarumt.WAM.Assignment.Infrastructure.Requests;
 using Tarumt.WAM.Assignment.Infrastructure.Services;
-using Microsoft.Extensions.Options;
-using Tarumt.WAM.Assignment.Infrastructure.Models;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tarumt.WAM.Assignment.Controllers
 {
+    [Authorize]
     [ApiController]
     public class TicketApiController(MovieShowtimeService movieShowtimeService) : ControllerBase
     {
         [HttpPost("/ticket/confirm_order/")]
         public async Task<IActionResult> CreateCheckoutSession(MovieShowtimeAddToCartRequest movieShowtimeAddToCartRequest)
         {
-            var movieShowtime = await movieShowtimeService.GetByIdAsync(movieShowtimeAddToCartRequest.Id);
+            var movieShowtime = await movieShowtimeService.GetByIdAsync(movieShowtimeAddToCartRequest.MovieShowtimeId);
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = ["card"],
@@ -36,8 +36,8 @@ namespace Tarumt.WAM.Assignment.Controllers
                     },
                 ],
                 Mode = "payment",
-                SuccessUrl = Url.Action(nameof(TicketController.Success), "Ticket", movieShowtimeAddToCartRequest, Request.Scheme),
-                CancelUrl = Url.Action(nameof(TicketController.Success), "Ticket", movieShowtimeAddToCartRequest, Request.Scheme),
+                SuccessUrl = Url.Action(nameof(TicketController.Success), "Ticket", new { Id = movieShowtimeAddToCartRequest.TicketId }, Request.Scheme),
+                CancelUrl = Url.Action(nameof(TicketController.Success), "Ticket", null, Request.Scheme),
             };
 
             try

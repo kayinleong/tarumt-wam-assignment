@@ -7,6 +7,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Requests
     {
         public string? Id { get; set; }
 
+        public int LoginAttempt = 0;
+
         [Display(Name = "First Name")]
         [Required]
         public required string FirstName { get; set; }

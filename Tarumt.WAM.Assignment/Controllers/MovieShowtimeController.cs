@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Controllers
 {
+    [Authorize]
     public class MovieShowtimeController(MovieShowtimeService movieShowtimeService) : Controller
     {
         [HttpGet("/movie_showtime/{id}/")]

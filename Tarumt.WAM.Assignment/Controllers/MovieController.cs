@@ -6,11 +6,13 @@ namespace Tarumt.WAM.Assignment.Controllers
     public class MovieController(MovieService movieService) : Controller
     {
         [HttpGet("/movies/")]
-        public ActionResult Index(int pageNumber = 1, int pageSize = 9)
+        public ActionResult Index(int pageNumber = 1, int pageSize = 9, string keyword = "")
         {
+            ViewBag.Keyword = keyword;
+
             try
             {
-                var movie = movieService.GetAll(pageNumber, pageSize, string.Empty);
+                var movie = movieService.GetAll(pageNumber, pageSize, keyword);
                 return View(movie);
             }
             catch

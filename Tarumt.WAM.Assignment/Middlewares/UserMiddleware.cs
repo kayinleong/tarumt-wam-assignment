@@ -15,20 +15,13 @@ namespace Tarumt.WAM.Assignment.Middlewares
         }
     }
 
-    public class UserMiddleware
+    public class UserMiddleware(RequestDelegate requestDelegate)
     {
-        private readonly RequestDelegate _requestDelegate;
-
-        public UserMiddleware(RequestDelegate requestDelegate)
-        {
-            _requestDelegate = requestDelegate;
-        }
-
         public async Task InvokeAsync(HttpContext httpContext, UserService userService)
         {
             if (httpContext.Request.Path.Value!.StartsWith("/api/token/"))
             {
-                await _requestDelegate(httpContext);
+                await requestDelegate(httpContext);
                 return;
             }
 
@@ -60,7 +53,7 @@ namespace Tarumt.WAM.Assignment.Middlewares
             }
             catch { }
 
-            await _requestDelegate(httpContext);
+            await requestDelegate(httpContext);
         }
     }
 }

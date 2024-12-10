@@ -8,17 +8,19 @@ using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Controllers
 {
-    public class AccountController(UserService userService) : Controller
+    public class AccountController(IConfiguration configuration, UserService userService) : Controller
     {
         [HttpGet("/account/login/")]
         public ActionResult Login()
         {
+            ViewBag.CaptchaSiteKey = configuration["Captcha:SiteKey"];
             return View();
         }
 
         [HttpGet("/account/register/")]
         public ActionResult Register()
         {
+            ViewBag.CaptchaSiteKey = configuration["Captcha:SiteKey"];
             return View();
         }
 
@@ -34,6 +36,8 @@ namespace Tarumt.WAM.Assignment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(UserLoginRequest userLoginRequest)
         {
+            ViewBag.CaptchaSiteKey = configuration["Captcha:SiteKey"];
+
             if (!ModelState.IsValid)
             {
                 userLoginRequest.Password = string.Empty;
@@ -52,9 +56,13 @@ namespace Tarumt.WAM.Assignment.Controllers
 
                 await userService.ValidatePassword(userLoginRequest.Password, existingUser);
 
+                existingUser.GenerateSecurityStamps();
+                await userService.UpdateByIdAsync(existingUser);
+
                 var claimsIdentity = new ClaimsIdentity(
                 [
-                    new Claim(ClaimTypes.NameIdentifier, existingUser.Id.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, existingUser.Id.ToString()),
+                    new Claim("SecurityStamp", existingUser.SecurityStamps),
                 ], CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
@@ -72,6 +80,8 @@ namespace Tarumt.WAM.Assignment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(UserCreateRequest userCreateRequest)
         {
+            ViewBag.CaptchaSiteKey = configuration["Captcha:SiteKey"];
+
             if (!string.IsNullOrEmpty(userCreateRequest.Password) && userCreateRequest.Password.Length <= 7)
             {
                 ModelState.AddModelError(nameof(UserCreateRequest.Password), "Password must be longer than 7 characters.");

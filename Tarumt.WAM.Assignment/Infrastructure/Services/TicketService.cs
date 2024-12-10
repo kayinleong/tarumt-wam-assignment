@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tarumt.WAM.Assignment.Infrastructure.Constants;
 using Tarumt.WAM.Assignment.Infrastructure.Context;
 using Tarumt.WAM.Assignment.Infrastructure.Models;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
@@ -13,6 +15,10 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                 return PagedList<Ticket>.ToPagedList(
                     context.Set<Ticket>()
                         .Include(m => m.User)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
             }
@@ -21,6 +27,74 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
                 return PagedList<Ticket>.ToPagedList(
                     context.Set<Ticket>()
                         .Include(m => m.User)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.Movie)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
+                        .Where(m => m.User.Username.Contains(keyword))
+                        .OrderBy(m => m.CreatedAt),
+                    pageNumber, pageSize);
+            }
+        }
+
+        public PagedList<Ticket> GetAllByStatusAsync(int pageNumber, int pageSize, string keyword, TicketEnum status = TicketEnum.PAID)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return PagedList<Ticket>.ToPagedList(
+                    context.Set<Ticket>()
+                        .Where(m => m.Status == status)
+                        .Include(m => m.User)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.Movie)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
+                        .OrderBy(m => m.CreatedAt),
+                    pageNumber, pageSize);
+            }
+            else
+            {
+                return PagedList<Ticket>.ToPagedList(
+                    context.Set<Ticket>()
+                        .Where(m => m.Status == status)
+                        .Include(m => m.User)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.Movie)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
+                        .Where(m => m.User.Username.Contains(keyword))
+                        .OrderBy(m => m.CreatedAt),
+                    pageNumber, pageSize);
+            }
+        }
+
+        public PagedList<Ticket> GetAllByStatusAndUserAsync(int pageNumber, int pageSize, string keyword, User user, TicketEnum status = TicketEnum.PAID)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return PagedList<Ticket>.ToPagedList(
+                    context.Set<Ticket>()
+                        .Where(m => m.Status == status)
+                        .Include(m => m.User)
+                        .Where(m => m.User == user)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.Movie)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
+                        .OrderBy(m => m.CreatedAt),
+                    pageNumber, pageSize);
+            }
+            else
+            {
+                return PagedList<Ticket>.ToPagedList(
+                    context.Set<Ticket>()
+                        .Where(m => m.Status == status)
+                        .Include(m => m.User)
+                        .Where(m => m.User == user)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.Movie)
+                        .Include(m => m.MovieShowtime)
+                        .ThenInclude(m => m.MovieVenue)
                         .Where(m => m.User.Username.Contains(keyword))
                         .OrderBy(m => m.CreatedAt),
                     pageNumber, pageSize);
@@ -30,6 +104,11 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         public async Task<Ticket> GetByIdAsync(string id)
         {
             return await context.Tickets!
+                .Include(m => m.User)
+                .Include(m => m.MovieShowtime)
+                .ThenInclude(m => m.Movie)
+                .Include(m => m.MovieShowtime)
+                .ThenInclude(m => m.MovieVenue)
                 .FirstAsync(m => m.Id == id) ?? throw new InvalidOperationException("Ticket not found");
         }
 

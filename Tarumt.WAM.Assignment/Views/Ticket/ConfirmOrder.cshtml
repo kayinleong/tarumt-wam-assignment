@@ -65,7 +65,8 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    id: "@Model.Id",
+                    movie_showtime_id: "@Model.MovieShowtimeId",
+                    ticket_id: "@Model.TicketId",
                     selected_seat: `@(new HtmlString(Model.SelectedSeat))`
                 })
             })

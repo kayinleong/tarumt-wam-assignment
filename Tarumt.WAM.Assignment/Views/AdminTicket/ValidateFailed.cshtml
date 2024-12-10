@@ -1,0 +1,19 @@
+﻿@using System.Text.Json
+@{
+    ViewBag.Title = "Validate Ticket Failed - Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="relative overflow-x-auto bg-white/50 text-center p-8 shadow-md sm:rounded-lg">
+    <div class="flex justify-center mb-4">
+        <svg class="w-16 h-16 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Validate Ticket Failed</h1>
+    <div class="mt-10 flex flex-row gap-2 justify-center">
+        <a asp-controller="AdminTicket" asp-action="Index" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Return Back
+        </a>
+    </div>
+</div>

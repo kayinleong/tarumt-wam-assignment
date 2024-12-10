@@ -34,6 +34,13 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
 
         public string FullName => $"{FirstName} {LastName}";
 
+        public bool HasPendingTicket => Tickets.Any(ticket => ticket.Status == TicketEnum.PENDING);
+
+        public void GenerateSecurityStamps()
+        {
+            SecurityStamps = Guid.NewGuid().ToString();
+        }
+
         public static implicit operator User(UserCreateRequest userCreateRequest)
         {
             return new()
@@ -70,6 +77,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
             return new()
             {
                 Id = user.Id,
+                LoginAttempt = user.LoginAttempt,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Username = user.Username,

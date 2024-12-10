@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tarumt.WAM.Assignment.Infrastructure.Constants;
+using Tarumt.WAM.Assignment.Infrastructure.Models;
 using Tarumt.WAM.Assignment.Infrastructure.Requests;
 using Tarumt.WAM.Assignment.Infrastructure.Services;
 
@@ -21,10 +22,38 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
         public async Task<ActionResult> Detail(string id)
         {
             var user = await userService.GetByIdAsync(id);
+
             return View((UserRequest)user);
         }
 
-        [HttpGet("/admin/movie_venues/{id}/delete/")]
+        [HttpGet("/admin/users/{id}/unblock/")]
+        public async Task<ActionResult> Unblock(string id)
+        {
+            User user = null;
+            try
+            {
+                user = await userService.GetByIdAsync(id);
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index), "AdminUser");
+            }
+
+            try
+            {
+                user.LoginAttempt = 0;
+                await userService.UpdateByIdAsync(user);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessages = e.Message;
+                return RedirectToAction(nameof(Index), "AdminUser");
+            }
+
+            return RedirectToAction(nameof(Index), "AdminUser");
+        }
+
+        [HttpGet("/admin/users/{id}/delete/")]
         public async Task<ActionResult> Delete(string id)
         {
             var user = await userService.GetByIdAsync(id);

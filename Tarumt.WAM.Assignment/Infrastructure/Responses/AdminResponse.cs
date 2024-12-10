@@ -2,6 +2,8 @@
 {
     public class AdminResponse
     {
+        public int TotalPaidTickets { get; set; } = 0;
+
         public int TotalMovies { get; set; } = 0;
 
         public int TotalMovieShowtimes { get; set; } = 0;

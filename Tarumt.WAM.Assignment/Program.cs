@@ -25,6 +25,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseUserMiddleware();
+app.UseTurbolinkMiddleware();
 app.UseStaticFiles();
 app.UseRequestLocalization(app.Services.GetService<IOptions<RequestLocalizationOptions>>()!.Value);
 app.MapControllerRoute(

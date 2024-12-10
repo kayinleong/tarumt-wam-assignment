@@ -1,0 +1,37 @@
+﻿@model Ticket
+@using System.Text.Json
+@{
+    ViewBag.Title = "Validate Ticket - Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="relative overflow-x-auto bg-white/50 text-center p-8 shadow-md sm:rounded-lg">
+    <div class="flex justify-center mb-4">
+        <svg class="w-16 h-16 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 12a5 5 0 110-10 5 5 0 010 10zm7-5a5 5 0 110 10 5 5 0 010-10z" />
+        </svg>
+    </div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Validate Ticket Success</h1>
+    <div class="text-gray-600 mb-6">
+        <h5 class="mb-2 text-lg md:text-xl lg:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Ticket for @Model.MovieShowtime.Name
+        </h5>
+        <p class="mb-3 text-sm md:text-base lg:text-lg font-normal text-gray-700 dark:text-gray-400">
+            <span class="font-semibold">Cinema:</span> @Model.MovieShowtime.MovieVenue.Location
+        </p>
+        <p class="mb-3 text-sm md:text-base lg:text-lg font-normal text-gray-700 dark:text-gray-400">
+            <span class="font-semibold">Seat Numbers:</span> @Model.SeatNumbers.Trim('[', ']', '"').Replace("\",\"", ", ")
+        </p>
+        <p class="mb-3 text-sm md:text-base lg:text-lg font-normal text-gray-700 dark:text-gray-400">
+            <span class="font-semibold">Starting Time:</span> @Model.MovieShowtime.StartTime
+        </p>
+        <p class="mb-3 text-sm md:text-base lg:text-lg font-normal text-gray-700 dark:text-gray-400">
+            <span class="font-semibold">User:</span> @Model.User.FullName
+        </p>
+    </div>
+    <div class="flex flex-row gap-2 justify-center">
+        <a asp-controller="AdminTicket" asp-action="Index" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Return Back
+        </a>
+    </div>
+</div>

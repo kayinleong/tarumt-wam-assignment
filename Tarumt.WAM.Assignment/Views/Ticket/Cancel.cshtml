@@ -1,20 +1,30 @@
-﻿@using System.Text.Json
-@model MovieShowtimeAddToCartRequest
+﻿@model MovieShowtimeAddToCartRequest
 @{
-    ViewData["Title"] = "Confirm Order";
-    MovieShowtime movieShowtime = ViewBag.MovieShowtime;
-    var seats = JsonSerializer.Deserialize<List<string>>(Model.SelectedSeat)!;
+    ViewData["Title"] = "Payment Cancelled";
 }
 
-<div class="fixed container mx-auto top-0 left-0 right-0 mt-20 -z-20">
-    <div class="mt-20 mx-auto w-full">
-        <div class="grid grid-cols-2 opacity-50">
+<div class="relative container mx-auto mt-20">
+    <div class="absolute inset-0 -z-10">
+        <div class="grid grid-cols-2">
             <div class="ml-[25%] h-60 w-[400px] bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400 blur-3xl"></div>
             <div class="mt-[250px] h-60 w-[400px] rounded-full bg-gradient-to-r from-purple-200 to-purple-600 blur-3xl"></div>
         </div>
     </div>
-</div>
 
-<div class="container mx-auto my-20 px-4">
-    Success    
+    <div class="container mx-auto my-24 px-4 text-center">
+        <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-8">
+            <div class="flex justify-center mb-4">
+                <svg class="w-16 h-16 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Payment Cancelled</h1>
+            <p class="text-gray-600 mb-6">Your payment process has been cancelled. Please try again or contact support if you need assistance.</p>
+            <div class="flex flex-row gap-2 justify-center">
+                <a asp-controller="Home" asp-action="Index" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

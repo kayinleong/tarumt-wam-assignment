@@ -45,6 +45,29 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
 
         public bool IsExpired => DateTime.Today > EndTime;
 
+        public void BookAvailableSeats(string bookedSeatJson)
+        {
+            var bookedSeats = bookedSeatJson
+                .Trim('[', ']', '"')
+                .Replace("\",\"", ",")
+                .Split(',')
+                .Select(int.Parse)
+                .ToList();
+
+            var currentSeats = AvailableSeats
+                .Trim('[', ']')
+                .Split(',')
+                .Select(int.Parse)
+                .ToList();
+
+            foreach (var seat in bookedSeats)
+            {
+                currentSeats.Remove(seat);
+            }
+
+            AvailableSeats = "[" + string.Join(", ", currentSeats) + "]";
+        }
+
         public static implicit operator MovieShowtime(MovieShowtimeRequest movieShowtimeCreateRequest)
         {
             return new()

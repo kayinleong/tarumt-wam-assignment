@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Extensions
 {
@@ -21,6 +24,23 @@ namespace Tarumt.WAM.Assignment.Extensions
                     options.LoginPath = "/account/login";
                     options.LogoutPath = "/account/logout";
                     options.ReturnUrlParameter = "returnUrl";
+
+                    options.Events = new CookieAuthenticationEvents
+                    {
+                        OnValidatePrincipal = async context =>
+                        {
+                            var userRepository = context.HttpContext.RequestServices.GetRequiredService<UserService>();
+                            var userId = context.Principal!.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                            var securityStamp = context.Principal.FindFirst("SecurityStamp")?.Value;
+
+                            var user = await userRepository.GetByIdAsync(userId!);
+                            if (user == null || user.SecurityStamps != securityStamp)
+                            {
+                                context.RejectPrincipal();
+                                await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                            }
+                        }
+                    };
                 });
         }
     }
