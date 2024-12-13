@@ -1,4 +1,6 @@
-﻿namespace Tarumt.WAM.Assignment.Infrastructure.Responses
+﻿using Tarumt.WAM.Assignment.Infrastructure.Models;
+
+namespace Tarumt.WAM.Assignment.Infrastructure.Responses
 {
     public class AdminResponse
     {
@@ -11,5 +13,7 @@
         public int TotalMovieVenues { get; set; } = 0;
 
         public int TotalUsers { get; set; } = 0;
+
+        public List<TicketsDailyCount> TicketsDailyCounts { get; set; }
     }
 }

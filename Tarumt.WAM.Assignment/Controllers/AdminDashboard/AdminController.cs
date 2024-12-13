@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Tarumt.WAM.Assignment.Infrastructure.Constants;
 using Tarumt.WAM.Assignment.Infrastructure.Context;
 using Tarumt.WAM.Assignment.Infrastructure.Responses;
+using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
 {
     [Authorize]
-    public class AdminController(DatabaseContext databaseContext) : Controller
+    public class AdminController(DatabaseContext databaseContext, TicketService ticketService) : Controller
     {
         [HttpGet("/admin/")]
         public ActionResult Index()
@@ -18,7 +19,8 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
                 TotalMovies = databaseContext.Movies!.Count(),
                 TotalMovieShowtimes = databaseContext.MovieShowtimes!.Count(),
                 TotalMovieVenues = databaseContext.MovieVenues!.Count(),
-                TotalUsers = databaseContext.Users!.Count()
+                TotalUsers = databaseContext.Users!.Count(),
+                TicketsDailyCounts = ticketService.GetDailyCount()
             });
         }
     }

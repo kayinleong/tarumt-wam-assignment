@@ -2,12 +2,16 @@
 using Tarumt.WAM.Assignment.Infrastructure.Constants;
 using Tarumt.WAM.Assignment.Infrastructure.Context;
 using Tarumt.WAM.Assignment.Infrastructure.Models;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
     public class TicketService(DatabaseContext context)
     {
+        public List<TicketsDailyCount> GetDailyCount()
+        {
+            return context.TicketsDailyCounts.ToList();
+        }
+
         public PagedList<Ticket> GetAllAsync(int pageNumber, int pageSize, string keyword)
         {
             if (string.IsNullOrEmpty(keyword))

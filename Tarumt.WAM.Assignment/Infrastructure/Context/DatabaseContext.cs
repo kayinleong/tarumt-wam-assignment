@@ -14,5 +14,18 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Context
         public DbSet<MovieVenue>? MovieVenues { get; set; }
 
         public DbSet<Ticket>? Tickets { get; set; }
+
+        public DbSet<TicketsDailyCount> TicketsDailyCounts { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TicketsDailyCount>(eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView("TicketsDailyCount");
+            });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
