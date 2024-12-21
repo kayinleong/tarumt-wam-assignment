@@ -41,26 +41,47 @@
     <canvas id="ticketDailyCountChart" />
 </div>
 
+<div class="w-full mt-5 p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+        Ongoing Showtimes For Each Movie Venue
+    </h1>
+    <canvas id="movieVenueOngoingShowtimeChart" />
+</div>
+
+<div class="w-full mt-5 p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+        Tickets Sold For Each Movie Showtime
+    </h1>
+    <canvas id="movieShowtimeTicketsSoldChart" />
+</div>
+
+<div class="w-full mt-5 p-6 bg-white/50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+        Tickets Sold For Each Movie
+    </h1>
+    <canvas id="moviesSoldOutTicketsChart" />
+</div>
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ticketDailyCountChart = document.getElementById('ticketDailyCountChart');
-        const ticketData = @Html.Raw(Json.Serialize(Model.TicketsDailyCounts));
-        const labels = ticketData.map(item => {
+        const ticketDataSet = @Html.Raw(Json.Serialize(Model.TicketsDailyCounts))
+        const ticketLabels = ticketDataSet.map(item => {
             const parsedDate = new Date(item.ticket_date);
             return isNaN(parsedDate)
                 ? item.ticketDate
                 : parsedDate.toLocaleDateString();
         });
-        const data = ticketData.map(item => item.total_tickets);
+        const ticketData = ticketDataSet.map(item => item.total_tickets);
 
         new Chart(ticketDailyCountChart, {
             type: 'line',
             data: {
-                labels: labels, 
+                labels: ticketLabels,
                 datasets: [{
                     label: 'Tickets Sold Daily',
-                    data: data, 
+                    data: ticketData,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderWidth: 2,
@@ -87,6 +108,141 @@
                         title: {
                             display: true,
                             text: 'Total Tickets'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        const movieVenueOngoingShowtimeChart = document.getElementById('movieVenueOngoingShowtimeChart');
+        const movieVenueOngoingShowtimeDataSet = @Html.Raw(Json.Serialize(Model.MovieVenueOngoingShowtimes))
+        const movieVenueOngoingShowtimeLabels = movieVenueOngoingShowtimeDataSet.map(item => item.venue_location);
+        const movieVenueOngoingShowtimeData = movieVenueOngoingShowtimeDataSet.map(item => item.ongoing_showtimes);
+
+        new Chart(movieVenueOngoingShowtimeChart, {
+            type: 'bar',
+            data: {
+                labels: movieVenueOngoingShowtimeLabels,
+                datasets: [{
+                    label: 'Ongoing Showtimes For Each Movie Venue',
+                    data: movieVenueOngoingShowtimeData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Movie Venues'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total Ongoing Showtimes'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        const moviesSoldOutTicketsChart = document.getElementById('moviesSoldOutTicketsChart');
+        const moviesSoldOutTicketsDataSet = @Html.Raw(Json.Serialize(Model.MoviesSoldOutTickets))
+        const moviesSoldOutTicketsLabels = moviesSoldOutTicketsDataSet.map(item => item.movie_name);
+        const moviesSoldOutTicketsData = moviesSoldOutTicketsDataSet.map(item => item.tickets_sold);
+
+        new Chart(moviesSoldOutTicketsChart, {
+            type: 'bar',
+            data: {
+                labels: moviesSoldOutTicketsLabels,
+                datasets: [{
+                    label: 'Tickets Sold For Each Movie',
+                    data: moviesSoldOutTicketsData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Movie'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Ticket Sold'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        const movieShowtimeTicketsSoldChart = document.getElementById('movieShowtimeTicketsSoldChart');
+        const movieShowtimeTicketsSoldDataSet = @Html.Raw(Json.Serialize(Model.MovieShowtimeTicketsSold))
+        const movieShowtimeTicketsSoldLabels = movieShowtimeTicketsSoldDataSet.map(item => item.showtime_name);
+        const movieShowtimeTicketsSoldData = movieShowtimeTicketsSoldDataSet.map(item => item.tickets_sold);
+
+        new Chart(movieShowtimeTicketsSoldChart, {
+            type: 'bar',
+            data: {
+                labels: movieShowtimeTicketsSoldLabels,
+                datasets: [{
+                    label: 'Tickets Sold For Each Movie Showtime',
+                    data: movieShowtimeTicketsSoldData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Movie Showtime'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Ticket Sold'
                         }
                     }
                 }

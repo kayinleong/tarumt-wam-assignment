@@ -17,12 +17,36 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Context
 
         public DbSet<TicketsDailyCount> TicketsDailyCounts { get; set; }
 
+        public DbSet<MovieVenueOngoingShowtime> MovieVenueOngoingShowtimes { get; set; }
+
+        public DbSet<MovieShowtimeTicketsSold> MovieShowtimeTicketsSold { get; set; }
+
+        public DbSet<MoviesSoldOutTicket> MoviesSoldOutTickets { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TicketsDailyCount>(eb =>
             {
                 eb.HasNoKey();
                 eb.ToView("TicketsDailyCount");
+            });
+
+            modelBuilder.Entity<MovieVenueOngoingShowtime>(eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView("MovieVenueOngoingShowtimes");
+            });
+
+            modelBuilder.Entity<MovieShowtimeTicketsSold>(eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView("MovieShowtimeTicketsSold");
+            });
+
+            modelBuilder.Entity<MoviesSoldOutTicket>(eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView("MoviesSoldOutTickets");
             });
 
             base.OnModelCreating(modelBuilder);

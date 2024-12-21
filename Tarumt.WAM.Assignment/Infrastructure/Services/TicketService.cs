@@ -7,10 +7,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
     public class TicketService(DatabaseContext context)
     {
-        public List<TicketsDailyCount> GetDailyCount()
-        {
-            return context.TicketsDailyCounts.ToList();
-        }
+        public List<TicketsDailyCount> DailyCount => [.. context.TicketsDailyCounts];
 
         public PagedList<Ticket> GetAllAsync(int pageNumber, int pageSize, string keyword)
         {

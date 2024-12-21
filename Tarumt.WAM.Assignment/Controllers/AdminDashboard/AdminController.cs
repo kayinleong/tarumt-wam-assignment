@@ -8,7 +8,12 @@ using Tarumt.WAM.Assignment.Infrastructure.Services;
 namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
 {
     [Authorize]
-    public class AdminController(DatabaseContext databaseContext, TicketService ticketService) : Controller
+    public class AdminController(
+        DatabaseContext databaseContext, 
+        TicketService ticketService, 
+        MovieVenueService movieVenueService,
+        MovieShowtimeService movieShowtimeService,
+        MovieService movieService) : Controller
     {
         [HttpGet("/admin/")]
         public ActionResult Index()
@@ -20,7 +25,10 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
                 TotalMovieShowtimes = databaseContext.MovieShowtimes!.Count(),
                 TotalMovieVenues = databaseContext.MovieVenues!.Count(),
                 TotalUsers = databaseContext.Users!.Count(),
-                TicketsDailyCounts = ticketService.GetDailyCount()
+                TicketsDailyCounts = ticketService.DailyCount,
+                MovieVenueOngoingShowtimes = movieVenueService.MovieVenueOngoingShowtimes,
+                MovieShowtimeTicketsSold = movieShowtimeService.MovieShowtimeTicketsSold,
+                MoviesSoldOutTickets = movieService.MoviesSoldOutTickets
             });
         }
     }

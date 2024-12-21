@@ -6,6 +6,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
     public class MovieVenueService(DatabaseContext context)
     {
+        public List<MovieVenueOngoingShowtime> MovieVenueOngoingShowtimes => [.. context.MovieVenueOngoingShowtimes!];
+
         public PagedList<MovieVenue> GetAllAsync(int pageNumber, int pageSize, string keyword)
         {
             if (string.IsNullOrEmpty(keyword))

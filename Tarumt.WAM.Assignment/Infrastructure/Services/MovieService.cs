@@ -6,6 +6,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
 {
     public class MovieService(DatabaseContext context)
     {
+        public List<MoviesSoldOutTicket> MoviesSoldOutTickets => [.. context.MoviesSoldOutTickets!];
+
         public PagedList<Movie> GetAll(int pageNumber, int pageSize, string keyword)
         {
             if (string.IsNullOrEmpty(keyword))

@@ -3,15 +3,24 @@
   "WorkspaceRootPath": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\controllers\\admindashboard\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\controllers\\admindashboard\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\infrastructure\\services\\movieservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\infrastructure\\services\\movieservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\infrastructure\\context\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\infrastructure\\context\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/AssignmentDB/True/SqlView/dbo.TicketsDailyCount.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\infrastructure\\services\\movievenueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\infrastructure\\services\\movievenueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\infrastructure\\models\\movievenueongoingshowtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\infrastructure\\models\\movievenueongoingshowtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,37 +83,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminController.cs",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminController.cs",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminController.cs",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABCAAAAAAAAAA==",
+              "Title": "MovieService.cs",
+              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieService.cs",
+              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieService.cs",
+              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieService.cs",
+              "RelativeToolTip": "Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T12:47:23.934Z",
+              "WhenOpened": "2024-12-21T11:12:41.769Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "dbo.TicketsDailyCount [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/AssignmentDB/True/SqlView/dbo.TicketsDailyCount.sql",
-              "ToolTip": "dbo.TicketsDailyCount [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-13T12:37:23.858Z",
+              "Title": "MovieVenueService.cs",
+              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieVenueService.cs",
+              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieVenueService.cs",
+              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieVenueService.cs",
+              "RelativeToolTip": "Tarumt.WAM.Assignment\\Infrastructure\\Services\\MovieVenueService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T11:12:03.244Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DatabaseContext.cs",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T12:43:18.167Z",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\Admin\\Index.cshtml",
+              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Views\\Admin\\Index.cshtml",
+              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\Admin\\Index.cshtml",
+              "RelativeToolTip": "Tarumt.WAM.Assignment\\Views\\Admin\\Index.cshtml",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAgwIcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-21T11:05:56.337Z",
               "EditorCaption": ""
             }
           ]
@@ -124,6 +136,53 @@
             {
               "$type": "Bookmark",
               "Name": "ST:8:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "dfacfc18-2d65-427a-82a8-61fe17346ab5",
+        "Display": 2,
+        "X": 197,
+        "Y": 170,
+        "Width": 1484,
+        "Height": 723,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MovieVenueOngoingShowtime.cs",
+              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Models\\MovieVenueOngoingShowtime.cs",
+              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Infrastructure\\Models\\MovieVenueOngoingShowtime.cs",
+              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Models\\MovieVenueOngoingShowtime.cs",
+              "RelativeToolTip": "Tarumt.WAM.Assignment\\Infrastructure\\Models\\MovieVenueOngoingShowtime.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T11:07:51.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DatabaseContext.cs",
+              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
+              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
+              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
+              "RelativeToolTip": "Tarumt.WAM.Assignment\\Infrastructure\\Context\\DatabaseContext.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAkwDAAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-21T11:06:04.299Z",
+              "EditorCaption": ""
             }
           ]
         }
