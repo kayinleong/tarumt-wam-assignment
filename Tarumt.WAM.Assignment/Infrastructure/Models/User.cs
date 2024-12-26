@@ -32,6 +32,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Models
 
         public List<Ticket> Tickets { get; set; } = [];
 
+        public List<UserLog> UserLogs { get; set; } = [];
+
         public string FullName => $"{FirstName} {LastName}";
 
         public bool HasPendingTicket => Tickets.Any(ticket => ticket.Status == TicketEnum.PENDING);

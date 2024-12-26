@@ -52,20 +52,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var movieVenue in Model)
+            @foreach (var user in Model)
             {
                 <tr class='bg-white/50 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
                     <th scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-                        @movieVenue.FullName
+                        @user.FullName
                     </th>
                     <th scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-                        @movieVenue.Username
+                        @user.Username
                     </th>
                     <th scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-                        @movieVenue.Email
+                        @user.Email
                     </th>
-                    <td class='px-6 py-4 text-right'>
-                        <a asp-controller="AdminUser" asp-action="Detail" asp-route-id="@movieVenue.Id" class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Details</a>
+                    <td class='px-6 py-4 text-right space-x-4'>
+                        <a asp-controller="AdminUser" asp-action="ViewLog" asp-route-id="@user.Id" class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Logs</a>
+                        <a asp-controller="AdminUser" asp-action="Detail" asp-route-id="@user.Id" class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Details</a>
                     </td>
                 </tr>
             }

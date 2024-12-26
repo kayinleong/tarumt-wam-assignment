@@ -9,13 +9,21 @@ using Microsoft.AspNetCore.Authorization;
 namespace Tarumt.WAM.Assignment.Controllers
 {
     [Authorize]
-    public class TicketController(MovieShowtimeService movieShowtimeService, TicketService ticketService, IOptions<StripeSettings> stripeSettings) : Controller
+    public class TicketController(UserLogService userLogService, MovieShowtimeService movieShowtimeService, TicketService ticketService, IOptions<StripeSettings> stripeSettings) : Controller
     {
         [HttpGet("/ticket/")]
-        public ActionResult Index(int pageNumber = 1, int pageSize = 3, string keyword = "")
+        public async Task<ActionResult> Index(int pageNumber = 1, int pageSize = 3, string keyword = "")
         {
             var user = HttpContext.Items["User"] as User;
             var tickets = ticketService.GetAllByStatusAndUserAsync(pageNumber, pageSize, keyword, user!);
+
+            await userLogService.CreateAsync(new()
+            {
+                Message = $"User POST TicketController.Index(PageNumber={pageNumber},PageSize={pageSize},Keyword={keyword})",
+                Type = UserLogEnum.NORMAL,
+                User = user!,
+            });
+
             return View(tickets);
         }
 
@@ -40,16 +48,30 @@ namespace Tarumt.WAM.Assignment.Controllers
 
                 ViewBag.MovieShowtime = await movieShowtimeService.GetByIdAsync(movieShowtimeAddToCartRequest.MovieShowtimeId);
                 ViewBag.PublishableKey = stripeSettings.Value.PublishableKey;
+
+                await userLogService.CreateAsync(new()
+                {
+                    Message = $"User POST TicketController.ConfirmOrder(...)",
+                    Type = UserLogEnum.NORMAL,
+                    User = user!,
+                });
+
                 return View(movieShowtimeAddToCartRequest);
             }
             catch
             {
+                await userLogService.CreateAsync(new()
+                {
+                    Message = $"User POST TicketController.ConfirmOrder(...) failed",
+                    Type = UserLogEnum.NORMAL,
+                    User = user!,
+                });
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
 
         [HttpGet("/ticket/success/")]
-        public async Task<IActionResult> Success([FromQuery] string id)
+        public async Task<ActionResult> Success([FromQuery] string id)
         {
             var user = HttpContext.Items["User"] as User;
 
@@ -71,16 +93,38 @@ namespace Tarumt.WAM.Assignment.Controllers
             }
             catch
             {
+                await userLogService.CreateAsync(new()
+                {
+                    Message = $"User POST TicketController.Success(Id={id}) failed",
+                    Type = UserLogEnum.ERROR,
+                    User = user!,
+                });
+
                 return RedirectToAction(nameof(Cancel), "Ticket");
             }
+
+            await userLogService.CreateAsync(new()
+            {
+                Message = $"User POST TicketController.Success(Id={id})",
+                Type = UserLogEnum.NORMAL,
+                User = user!,
+            });
 
             ViewBag.MovieShowtime = movieShowtime;
             return View(ticket);
         }
 
         [HttpGet("/ticket/cancel/")]
-        public IActionResult Cancel()
+        public async Task<ActionResult> Cancel()
         {
+            var user = HttpContext.Items["User"] as User;
+            await userLogService.CreateAsync(new()
+            {
+                Message = $"User POST TicketController.Cancel()",
+                Type = UserLogEnum.WARNING,
+                User = user!,
+            });
+
             return View();
         }
     }

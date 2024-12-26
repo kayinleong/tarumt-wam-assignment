@@ -8,7 +8,7 @@ using Tarumt.WAM.Assignment.Infrastructure.Services;
 namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
 {
     [Authorize]
-    public class AdminUserController(UserService userService) : Controller
+    public class AdminUserController(UserService userService, UserLogService userLogService) : Controller
     {
         [HttpGet("/admin/users/")]
         public ActionResult Index(int pageNumber = 1, int pageSize = 10, string keyword = "", UserEnum userStatus = UserEnum.ADMIN)
@@ -16,6 +16,14 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             ViewBag.Status = userStatus;
             var users = userService.GetAllAsync(pageNumber, pageSize, keyword, userStatus);
             return View(users);
+        }
+
+        [HttpGet("/admin/users/{id}/logs/")]
+        public ActionResult ViewLog(string id, int pageNumber = 1, int pageSize = 10)
+        {
+            var userLogs = userLogService.GetAllByUserId(id, pageNumber, pageSize);
+            ViewBag.Id = id;
+            return View(userLogs);
         }
 
         [HttpGet("/admin/users/{id}/")]

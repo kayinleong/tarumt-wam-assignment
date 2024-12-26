@@ -35,6 +35,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         {
             return await context.Users!
                 .Include(m => m.Tickets)
+                .Include(m => m.UserLogs)
                 .FirstAsync(m => m.Id == id) ?? throw new InvalidOperationException("User not found");
         }
 
@@ -42,6 +43,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         {
             return await context.Users!
                 .Include(m => m.Tickets)
+                .Include(m => m.UserLogs)
                 .FirstAsync(m => m.Username == username) ?? throw new InvalidOperationException("User not found");
         }
 
@@ -49,6 +51,7 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Services
         {
             return await context.Users!
                 .Include(m => m.Tickets)
+                .Include(m => m.UserLogs)
                 .FirstAsync(m => m.Email == email) ?? throw new InvalidOperationException("User not found");
         }
 

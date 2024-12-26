@@ -109,6 +109,32 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                     b.ToTable("MovieShowtimes");
                 });
 
+            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.MovieShowtimeTicketsSold", b =>
+                {
+                    b.Property<string>("MovieId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovieName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovieShowtimeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShowtimeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TicketsSold")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("MovieShowtimeTicketsSold", (string)null);
+                });
+
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.MovieVenue", b =>
                 {
                     b.Property<string>("Id")
@@ -133,6 +159,42 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MovieVenues");
+                });
+
+            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.MovieVenueOngoingShowtime", b =>
+                {
+                    b.Property<string>("MovieVenueId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OngoingShowtimes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VenueLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("MovieVenueOngoingShowtimes", (string)null);
+                });
+
+            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.MoviesSoldOutTicket", b =>
+                {
+                    b.Property<string>("MovieId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovieName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TicketsSold")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("MoviesSoldOutTickets", (string)null);
                 });
 
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.Ticket", b =>
@@ -170,6 +232,19 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.TicketsDailyCount", b =>
+                {
+                    b.Property<DateTime>("TicketDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalTickets")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("TicketsDailyCount", (string)null);
                 });
 
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.User", b =>
@@ -220,6 +295,37 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.UserLog", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLogs");
+                });
+
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.MovieShowtime", b =>
                 {
                     b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.Movie", "Movie")
@@ -258,6 +364,17 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.UserLog", b =>
+                {
+                    b.HasOne("Tarumt.WAM.Assignment.Infrastructure.Models.User", "User")
+                        .WithMany("UserLogs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.Movie", b =>
                 {
                     b.Navigation("MovieShowtimes");
@@ -276,6 +393,8 @@ namespace Tarumt.WAM.Assignment.Infrastructure.Migrations
             modelBuilder.Entity("Tarumt.WAM.Assignment.Infrastructure.Models.User", b =>
                 {
                     b.Navigation("Tickets");
+
+                    b.Navigation("UserLogs");
                 });
 #pragma warning restore 612, 618
         }

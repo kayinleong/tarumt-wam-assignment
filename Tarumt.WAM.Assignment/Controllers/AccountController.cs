@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Tarumt.WAM.Assignment.Infrastructure.Constants;
 using Tarumt.WAM.Assignment.Infrastructure.Models;
 using Tarumt.WAM.Assignment.Infrastructure.Requests;
 using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Controllers
 {
-    public class AccountController(IConfiguration configuration, UserService userService) : Controller
+    public class AccountController(IConfiguration configuration, UserService userService, UserLogService userLogService) : Controller
     {
         [HttpGet("/account/login/")]
         public ActionResult Login()
@@ -65,6 +66,13 @@ namespace Tarumt.WAM.Assignment.Controllers
                     new Claim("SecurityStamp", existingUser.SecurityStamps),
                 ], CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+
+                await userLogService.CreateAsync(new()
+                {
+                    Message = "User logged in",
+                    Type = UserLogEnum.NORMAL,
+                    User = existingUser,
+                });
 
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
