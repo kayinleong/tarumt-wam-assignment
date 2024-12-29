@@ -1,0 +1,29 @@
+﻿@using System.Text.Json
+@{
+    ViewBag.Title = "Validate Ticket - Admin Dashboard";
+    Layout = "_WorkerLayout";
+}
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div id="reader" width="600px" class="bg-white/50 p-5"></div>
+</div>
+
+
+@section Scripts {
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+          var { ticketId, seats } = JSON.parse(decodedText);
+          window.location.href = `@Url.Action("ValidateResult", "WorkerTicket")?ticketId=${ticketId}&seats=${JSON.stringify(seats)}`;
+        }
+
+        function onScanFailure(error) {
+          console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+          "reader",
+          { fps: 10, qrbox: {width: 250, height: 250} }, false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+}

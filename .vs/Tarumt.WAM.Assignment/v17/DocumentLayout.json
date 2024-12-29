@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\extensions\\serviceextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\extensions\\serviceextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\views\\ticket\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\views\\ticket\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\views\\adminuser\\viewlog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\views\\adminuser\\viewlog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|e:\\programming\\projects\\bmit2023 web and mobile systems\\tarumt.wam.assignment\\tarumt.wam.assignment\\controllers\\admindashboard\\adminusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8F38C408-91A2-4DF0-A697-7F7668BAB46C}|Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment.csproj|solutionrelative:tarumt.wam.assignment\\controllers\\admindashboard\\adminusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -75,58 +58,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ServiceExtension.cs",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Extensions\\ServiceExtension.cs",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Extensions\\ServiceExtension.cs",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Extensions\\ServiceExtension.cs",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Extensions\\ServiceExtension.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-26T08:00:36.945Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\Ticket\\Index.cshtml",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Views\\Ticket\\Index.cshtml",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\Ticket\\Index.cshtml",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Views\\Ticket\\Index.cshtml",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGIAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-26T07:59:59.108Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ViewLog.cshtml",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\AdminUser\\ViewLog.cshtml",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Views\\AdminUser\\ViewLog.cshtml",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Views\\AdminUser\\ViewLog.cshtml",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Views\\AdminUser\\ViewLog.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-26T07:57:26.18Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AdminUserController.cs",
-              "DocumentMoniker": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "RelativeDocumentMoniker": "Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "ToolTip": "E:\\Programming\\Projects\\BMIT2023 Web and Mobile Systems\\Tarumt.WAM.Assignment\\Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "RelativeToolTip": "Tarumt.WAM.Assignment\\Controllers\\AdminDashboard\\AdminUserController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-26T07:54:26.82Z",
-              "EditorCaption": ""
             }
           ]
         },

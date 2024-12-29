@@ -1,0 +1,50 @@
+﻿@{
+    var user = Context.Items["User"] as User;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Silver Screen Cinema</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="/css/app.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" integrity="sha512-G3jAqT2eM4MMkLMyQR5YBhvN5/Da3IG6kqgYqU9zlIH4+2a+GuMdLb5Kpxy6ItMdCfgaKlo2XFhI0dHtMJjoRw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          darkMode: 'class',
+        }
+    </script>
+    @await RenderSectionAsync("Styles", false)
+</head>
+<body class="light">
+    @await Html.PartialAsync("_Navbar", user)
+
+    <div class="fixed container mx-auto top-0 left-0 right-0 mt-20 -z-20">
+        <div class="mt-20 mx-auto w-full">
+            <div class="grid grid-cols-2 opacity-50">
+                <div class="ml-[25%] h-60 w-[400px] bg-gradient-to-r from-purple-600 via-indigo-500 to-purple-400 blur-3xl"></div>
+                <div class="mt-[250px] h-60 w-[400px] rounded-full bg-gradient-to-r from-purple-200 to-purple-600 blur-3xl"></div>
+            </div>
+        </div>
+    </div>
+
+    <main role="main" class="min-h-screen">
+        <div class="min-h-screen">
+            <div class="container mx-auto px-4 pt-32 pb-40">
+                <div class="w-full flex flex-col lg:flex-row">
+                    <div class="w-full mt-5">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    @await Html.PartialAsync("_Footer")
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js" defer></script>
+    @await RenderSectionAsync("Scripts", false)
+</body>
+</html>

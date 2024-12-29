@@ -4,6 +4,6 @@
     {
         GUEST,
         ADMIN,
-        VOLUNTEER,
+        WORKER,
     }
 }

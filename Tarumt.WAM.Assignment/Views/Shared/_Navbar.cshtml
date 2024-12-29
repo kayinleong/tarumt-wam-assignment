@@ -46,6 +46,13 @@
                             </li>
                         }
 
+                        @if (Model.Type == UserEnum.WORKER)
+                        {
+                            <li>
+                                <a asp-controller="WorkerTicket" asp-action="Validate" class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Validate Tickets</a>
+                            </li>
+                        }
+
                         <li>
                             <a asp-controller="Ticket" asp-action="Index" class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Tickets</a>
                         </li>

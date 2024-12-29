@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Tarumt.WAM.Assignment.Infrastructure.Models;
 using Tarumt.WAM.Assignment.Infrastructure.Services;
 
 namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
@@ -13,6 +14,13 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             var tickets = ticketService.GetAllByStatusAsync(pageNumber, pageSize, string.Empty);
 
             return View(tickets);
+        }
+
+        [HttpGet("/admin/ticket/{id}")]
+        public async Task<ActionResult> Detail(string id)
+        {
+            var ticket = await ticketService.GetByIdAsync(id);
+            return View(ticket);
         }
 
         [HttpGet("/admin/ticket/validate")]
@@ -44,6 +52,28 @@ namespace Tarumt.WAM.Assignment.Controllers.AdminDashboard
             {
                 return RedirectToAction(nameof(ValidateFailed), "AdminTicket");
             }
+        }
+
+        [HttpPost("/admin/ticket/{id}")]
+        public async Task <ActionResult> Detail(string id, Ticket ticket)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(ticket);
+            }
+
+            ticket.Id = id;
+            try
+            {
+                await ticketService.UpdateByIdAsync(ticket);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessages = e.Message;
+                return View(ticket);
+            }
+
+            return RedirectToAction(nameof(Index), "AdminTicket", new { id });
         }
     }
 }

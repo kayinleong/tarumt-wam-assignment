@@ -47,6 +47,12 @@ namespace Tarumt.WAM.Assignment.Middlewares
                         return;
                     }
 
+                    if (httpContext.Request.Path.Value!.StartsWith("/worker") && user.Type != UserEnum.WORKER)
+                    {
+                        httpContext.Response.Redirect("/");
+                        return;
+                    }
+
                     httpContext.Items.Add("User", user);
                     httpContext.Items.Add("UserTickets", user.Tickets);
                 }
