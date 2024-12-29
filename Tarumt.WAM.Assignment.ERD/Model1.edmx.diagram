@@ -4,20 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1881ea3319834711a3d811d5d155a223" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="AssignmentDBModel.C__EFMigrationsHistory" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssignmentDBModel.Movy" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssignmentDBModel.MovieShowtime" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssignmentDBModel.MovieVenue" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssignmentDBModel.Ticket" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssignmentDBModel.User" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AssignmentDBModel.UserSecurityMeta" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
-        <AssociationConnector Association="AssignmentDBModel.FK_Movies_MovieVenues_MovieVenueId" ManuallyRouted="false" />
+      <Diagram DiagramId="b64f94c2787341e886f0107b09493fb4" Name="Diagram1">
+        <EntityTypeShape EntityType="AssignmentDBModel.C__EFMigrationsHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.Movy" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.MovieShowtime" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.MovieVenue" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.Ticket" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.UserLog" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.User" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.MovieShowtimeTicketsSold" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.MoviesSoldOutTicket" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentDBModel.MovieVenueOngoingShowtime" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="AssignmentDBModel.FK_MovieShowtimes_Movies_MovieId" ManuallyRouted="false" />
         <AssociationConnector Association="AssignmentDBModel.FK_MovieShowtimes_MovieVenues_MovieVenueId" ManuallyRouted="false" />
         <AssociationConnector Association="AssignmentDBModel.FK_Tickets_MovieShowtimes_MovieShowtimeId" ManuallyRouted="false" />
         <AssociationConnector Association="AssignmentDBModel.FK_Tickets_Users_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="AssignmentDBModel.FK_Users_UserSecurityMetas_SecurityMetaId" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentDBModel.FK_UserLogs_Users_UserId" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

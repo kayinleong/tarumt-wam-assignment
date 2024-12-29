@@ -20,7 +20,6 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="MovieVenueId" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -38,7 +37,7 @@
           <Property Name="AvailableSeats" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="MovieId" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="MovieVenueId" Type="nvarchar" MaxLength="450" />
+          <Property Name="MovieVenueId" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
@@ -64,6 +63,17 @@
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -74,35 +84,55 @@
           <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="SecurityMetaId" Type="nvarchar" MaxLength="450" Nullable="false" />
           <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserSecurityMetas">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
-          <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="LoginAttempt" Type="int" Nullable="false" />
           <Property Name="SecurityStamps" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="UpdatedAt" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Movies_MovieVenues_MovieVenueId">
-          <End Role="MovieVenues" Type="Self.MovieVenues" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MovieVenues">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Movies">
-              <PropertyRef Name="MovieVenueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROGRAMMING\PROJECTS\BMIT2023 WEB AND MOBILE SYSTEMS\TARUMT.WAM.ASSIGNMENT\TARUMT.WAM.ASSIGNMENT.ERD\ASSIGNMENTDB.MDF.dbo.MovieShowtimeTicketsSold' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MovieShowtimeTicketsSold">
+          <Key>
+            <PropertyRef Name="MovieShowtimeId" />
+            <PropertyRef Name="ShowtimeName" />
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="MovieName" />
+          </Key>
+          <Property Name="MovieShowtimeId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ShowtimeName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MovieId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="MovieName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TicketsSold" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROGRAMMING\PROJECTS\BMIT2023 WEB AND MOBILE SYSTEMS\TARUMT.WAM.ASSIGNMENT\TARUMT.WAM.ASSIGNMENT.ERD\ASSIGNMENTDB.MDF.dbo.MoviesSoldOutTickets' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MoviesSoldOutTickets">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="MovieName" />
+          </Key>
+          <Property Name="MovieId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="MovieName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TicketsSold" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROGRAMMING\PROJECTS\BMIT2023 WEB AND MOBILE SYSTEMS\TARUMT.WAM.ASSIGNMENT\TARUMT.WAM.ASSIGNMENT.ERD\ASSIGNMENTDB.MDF.dbo.MovieVenueOngoingShowtimes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MovieVenueOngoingShowtimes">
+          <Key>
+            <PropertyRef Name="MovieVenueId" />
+            <PropertyRef Name="VenueLocation" />
+          </Key>
+          <Property Name="MovieVenueId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="VenueLocation" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OngoingShowtimes" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'E:\PROGRAMMING\PROJECTS\BMIT2023 WEB AND MOBILE SYSTEMS\TARUMT.WAM.ASSIGNMENT\TARUMT.WAM.ASSIGNMENT.ERD\ASSIGNMENTDB.MDF.dbo.TicketsDailyCount' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TicketsDailyCount">
+          <Property Name="TicketDate" Type="date" />
+          <Property Name="TotalTickets" Type="int" />
+        </EntityType>-->
         <Association Name="FK_MovieShowtimes_Movies_MovieId">
           <End Role="Movies" Type="Self.Movies" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -118,7 +148,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MovieShowtimes_MovieVenues_MovieVenueId">
-          <End Role="MovieVenues" Type="Self.MovieVenues" Multiplicity="0..1" />
+          <End Role="MovieVenues" Type="Self.MovieVenues" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="MovieShowtimes" Type="Self.MovieShowtimes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MovieVenues">
@@ -157,17 +189,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_UserSecurityMetas_SecurityMetaId">
-          <End Role="UserSecurityMetas" Type="Self.UserSecurityMetas" Multiplicity="1">
+        <Association Name="FK_UserLogs_Users_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <End Role="UserLogs" Type="Self.UserLogs" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserSecurityMetas">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="SecurityMetaId" />
+            <Dependent Role="UserLogs">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -177,12 +209,31 @@
           <EntitySet Name="MovieShowtimes" EntityType="Self.MovieShowtimes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovieVenues" EntityType="Self.MovieVenues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogs" EntityType="Self.UserLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserSecurityMetas" EntityType="Self.UserSecurityMetas" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Movies_MovieVenues_MovieVenueId" Association="Self.FK_Movies_MovieVenues_MovieVenueId">
-            <End Role="MovieVenues" EntitySet="MovieVenues" />
-            <End Role="Movies" EntitySet="Movies" />
-          </AssociationSet>
+          <EntitySet Name="MovieShowtimeTicketsSold" EntityType="Self.MovieShowtimeTicketsSold" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MovieShowtimeTicketsSold].[MovieShowtimeId] AS [MovieShowtimeId], 
+    [MovieShowtimeTicketsSold].[ShowtimeName] AS [ShowtimeName], 
+    [MovieShowtimeTicketsSold].[MovieId] AS [MovieId], 
+    [MovieShowtimeTicketsSold].[MovieName] AS [MovieName], 
+    [MovieShowtimeTicketsSold].[TicketsSold] AS [TicketsSold]
+    FROM [dbo].[MovieShowtimeTicketsSold] AS [MovieShowtimeTicketsSold]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MoviesSoldOutTickets" EntityType="Self.MoviesSoldOutTickets" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MoviesSoldOutTickets].[MovieId] AS [MovieId], 
+    [MoviesSoldOutTickets].[MovieName] AS [MovieName], 
+    [MoviesSoldOutTickets].[TicketsSold] AS [TicketsSold]
+    FROM [dbo].[MoviesSoldOutTickets] AS [MoviesSoldOutTickets]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MovieVenueOngoingShowtimes" EntityType="Self.MovieVenueOngoingShowtimes" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MovieVenueOngoingShowtimes].[MovieVenueId] AS [MovieVenueId], 
+    [MovieVenueOngoingShowtimes].[VenueLocation] AS [VenueLocation], 
+    [MovieVenueOngoingShowtimes].[OngoingShowtimes] AS [OngoingShowtimes]
+    FROM [dbo].[MovieVenueOngoingShowtimes] AS [MovieVenueOngoingShowtimes]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_MovieShowtimes_Movies_MovieId" Association="Self.FK_MovieShowtimes_Movies_MovieId">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="MovieShowtimes" EntitySet="MovieShowtimes" />
@@ -199,9 +250,9 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_UserSecurityMetas_SecurityMetaId" Association="Self.FK_Users_UserSecurityMetas_SecurityMetaId">
-            <End Role="UserSecurityMetas" EntitySet="UserSecurityMetas" />
+          <AssociationSet Name="FK_UserLogs_Users_UserId" Association="Self.FK_UserLogs_Users_UserId">
             <End Role="Users" EntitySet="Users" />
+            <End Role="UserLogs" EntitySet="UserLogs" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -224,10 +275,8 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MovieVenueId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="MovieVenue" Relationship="Self.FK_Movies_MovieVenues_MovieVenueId" FromRole="Movies" ToRole="MovieVenues" />
           <NavigationProperty Name="MovieShowtimes" Relationship="Self.FK_MovieShowtimes_Movies_MovieId" FromRole="Movies" ToRole="MovieShowtimes" />
         </EntityType>
         <EntityType Name="MovieShowtime">
@@ -244,7 +293,7 @@
           <Property Name="AvailableSeats" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="MovieId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MovieVenueId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="MovieVenueId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Movy" Relationship="Self.FK_MovieShowtimes_Movies_MovieId" FromRole="MovieShowtimes" ToRole="Movies" />
@@ -260,7 +309,6 @@
           <Property Name="Coordinate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Movies" Relationship="Self.FK_Movies_MovieVenues_MovieVenueId" FromRole="MovieVenues" ToRole="Movies" />
           <NavigationProperty Name="MovieShowtimes" Relationship="Self.FK_MovieShowtimes_MovieVenues_MovieVenueId" FromRole="MovieVenues" ToRole="MovieShowtimes" />
         </EntityType>
         <EntityType Name="Ticket">
@@ -277,6 +325,18 @@
           <NavigationProperty Name="MovieShowtime" Relationship="Self.FK_Tickets_MovieShowtimes_MovieShowtimeId" FromRole="Tickets" ToRole="MovieShowtimes" />
           <NavigationProperty Name="User" Relationship="Self.FK_Tickets_Users_UserId" FromRole="Tickets" ToRole="Users" />
         </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserLogs_Users_UserId" FromRole="UserLogs" ToRole="Users" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -287,38 +347,45 @@
           <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SecurityMetaId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Users_UserId" FromRole="Users" ToRole="Tickets" />
-          <NavigationProperty Name="UserSecurityMeta" Relationship="Self.FK_Users_UserSecurityMetas_SecurityMetaId" FromRole="Users" ToRole="UserSecurityMetas" />
-        </EntityType>
-        <EntityType Name="UserSecurityMeta">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="LoginAttempt" Type="Int32" Nullable="false" />
           <Property Name="SecurityStamps" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserSecurityMetas_SecurityMetaId" FromRole="UserSecurityMetas" ToRole="Users" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Users_UserId" FromRole="Users" ToRole="Tickets" />
+          <NavigationProperty Name="UserLogs" Relationship="Self.FK_UserLogs_Users_UserId" FromRole="Users" ToRole="UserLogs" />
         </EntityType>
-        <Association Name="FK_Movies_MovieVenues_MovieVenueId">
-          <End Role="MovieVenues" Type="Self.MovieVenue" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MovieVenues">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Movies">
-              <PropertyRef Name="MovieVenueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="MovieShowtimeTicketsSold">
+          <Key>
+            <PropertyRef Name="MovieShowtimeId" />
+            <PropertyRef Name="ShowtimeName" />
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="MovieName" />
+          </Key>
+          <Property Name="MovieShowtimeId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowtimeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MovieId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MovieName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TicketsSold" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MoviesSoldOutTicket">
+          <Key>
+            <PropertyRef Name="MovieId" />
+            <PropertyRef Name="MovieName" />
+          </Key>
+          <Property Name="MovieId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MovieName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TicketsSold" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MovieVenueOngoingShowtime">
+          <Key>
+            <PropertyRef Name="MovieVenueId" />
+            <PropertyRef Name="VenueLocation" />
+          </Key>
+          <Property Name="MovieVenueId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VenueLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OngoingShowtimes" Type="Int32" />
+        </EntityType>
         <Association Name="FK_MovieShowtimes_Movies_MovieId">
           <End Role="Movies" Type="Self.Movy" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -334,7 +401,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MovieShowtimes_MovieVenues_MovieVenueId">
-          <End Role="MovieVenues" Type="Self.MovieVenue" Multiplicity="0..1" />
+          <End Role="MovieVenues" Type="Self.MovieVenue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="MovieShowtimes" Type="Self.MovieShowtime" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MovieVenues">
@@ -373,32 +442,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_UserSecurityMetas_SecurityMetaId">
-          <End Role="UserSecurityMetas" Type="Self.UserSecurityMeta" Multiplicity="1">
+        <Association Name="FK_UserLogs_Users_UserId">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <End Role="UserLogs" Type="Self.UserLog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserSecurityMetas">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="SecurityMetaId" />
+            <Dependent Role="UserLogs">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AssignmentDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AssignmentDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
           <EntitySet Name="Movies" EntityType="Self.Movy" />
           <EntitySet Name="MovieShowtimes" EntityType="Self.MovieShowtime" />
           <EntitySet Name="MovieVenues" EntityType="Self.MovieVenue" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <EntitySet Name="UserLogs" EntityType="Self.UserLog" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="UserSecurityMetas" EntityType="Self.UserSecurityMeta" />
-          <AssociationSet Name="FK_Movies_MovieVenues_MovieVenueId" Association="Self.FK_Movies_MovieVenues_MovieVenueId">
-            <End Role="MovieVenues" EntitySet="MovieVenues" />
-            <End Role="Movies" EntitySet="Movies" />
-          </AssociationSet>
+          <EntitySet Name="MovieShowtimeTicketsSolds" EntityType="Self.MovieShowtimeTicketsSold" />
+          <EntitySet Name="MoviesSoldOutTickets" EntityType="Self.MoviesSoldOutTicket" />
+          <EntitySet Name="MovieVenueOngoingShowtimes" EntityType="Self.MovieVenueOngoingShowtime" />
           <AssociationSet Name="FK_MovieShowtimes_Movies_MovieId" Association="Self.FK_MovieShowtimes_Movies_MovieId">
             <End Role="Movies" EntitySet="Movies" />
             <End Role="MovieShowtimes" EntitySet="MovieShowtimes" />
@@ -415,9 +483,9 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_UserSecurityMetas_SecurityMetaId" Association="Self.FK_Users_UserSecurityMetas_SecurityMetaId">
-            <End Role="UserSecurityMetas" EntitySet="UserSecurityMetas" />
+          <AssociationSet Name="FK_UserLogs_Users_UserId" Association="Self.FK_UserLogs_Users_UserId">
             <End Role="Users" EntitySet="Users" />
+            <End Role="UserLogs" EntitySet="UserLogs" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -425,7 +493,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AssignmentDBModelStoreContainer" CdmEntityContainer="AssignmentDBEntities">
+        <EntityContainerMapping StorageEntityContainer="AssignmentDBModelStoreContainer" CdmEntityContainer="AssignmentDBEntities1">
           <EntitySetMapping Name="C__EFMigrationsHistory">
             <EntityTypeMapping TypeName="AssignmentDBModel.C__EFMigrationsHistory">
               <MappingFragment StoreEntitySet="__EFMigrationsHistory">
@@ -441,7 +509,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="MovieVenueId" ColumnName="MovieVenueId" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
               </MappingFragment>
@@ -490,6 +557,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserLogs">
+            <EntityTypeMapping TypeName="AssignmentDBModel.UserLog">
+              <MappingFragment StoreEntitySet="UserLogs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="AssignmentDBModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -499,21 +578,40 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="SecurityMetaId" ColumnName="SecurityMetaId" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+                <ScalarProperty Name="SecurityStamps" ColumnName="SecurityStamps" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserSecurityMetas">
-            <EntityTypeMapping TypeName="AssignmentDBModel.UserSecurityMeta">
-              <MappingFragment StoreEntitySet="UserSecurityMetas">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
-                <ScalarProperty Name="SecurityStamps" ColumnName="SecurityStamps" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <EntitySetMapping Name="MovieShowtimeTicketsSolds">
+            <EntityTypeMapping TypeName="AssignmentDBModel.MovieShowtimeTicketsSold">
+              <MappingFragment StoreEntitySet="MovieShowtimeTicketsSold">
+                <ScalarProperty Name="MovieShowtimeId" ColumnName="MovieShowtimeId" />
+                <ScalarProperty Name="ShowtimeName" ColumnName="ShowtimeName" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="TicketsSold" ColumnName="TicketsSold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoviesSoldOutTickets">
+            <EntityTypeMapping TypeName="AssignmentDBModel.MoviesSoldOutTicket">
+              <MappingFragment StoreEntitySet="MoviesSoldOutTickets">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="TicketsSold" ColumnName="TicketsSold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieVenueOngoingShowtimes">
+            <EntityTypeMapping TypeName="AssignmentDBModel.MovieVenueOngoingShowtime">
+              <MappingFragment StoreEntitySet="MovieVenueOngoingShowtimes">
+                <ScalarProperty Name="MovieVenueId" ColumnName="MovieVenueId" />
+                <ScalarProperty Name="VenueLocation" ColumnName="VenueLocation" />
+                <ScalarProperty Name="OngoingShowtimes" ColumnName="OngoingShowtimes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

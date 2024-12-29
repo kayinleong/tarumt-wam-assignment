@@ -13,10 +13,10 @@ namespace Tarumt.WAM.Assignment.ERD
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AssignmentDBEntities : DbContext
+    public partial class AssignmentDBEntities1 : DbContext
     {
-        public AssignmentDBEntities()
-            : base("name=AssignmentDBEntities")
+        public AssignmentDBEntities1()
+            : base("name=AssignmentDBEntities1")
         {
         }
     
@@ -30,7 +30,10 @@ namespace Tarumt.WAM.Assignment.ERD
         public virtual DbSet<MovieShowtime> MovieShowtimes { get; set; }
         public virtual DbSet<MovieVenue> MovieVenues { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<UserLog> UserLogs { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserSecurityMeta> UserSecurityMetas { get; set; }
+        public virtual DbSet<MovieShowtimeTicketsSold> MovieShowtimeTicketsSolds { get; set; }
+        public virtual DbSet<MoviesSoldOutTicket> MoviesSoldOutTickets { get; set; }
+        public virtual DbSet<MovieVenueOngoingShowtime> MovieVenueOngoingShowtimes { get; set; }
     }
 }

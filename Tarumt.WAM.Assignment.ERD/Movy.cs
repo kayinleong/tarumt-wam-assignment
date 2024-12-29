@@ -24,11 +24,9 @@ namespace Tarumt.WAM.Assignment.ERD
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public string MovieVenueId { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public System.DateTime CreatedAt { get; set; }
     
-        public virtual MovieVenue MovieVenue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovieShowtime> MovieShowtimes { get; set; }
     }

@@ -18,6 +18,7 @@ namespace Tarumt.WAM.Assignment.ERD
         public User()
         {
             this.Tickets = new HashSet<Ticket>();
+            this.UserLogs = new HashSet<UserLog>();
         }
     
         public string Id { get; set; }
@@ -26,12 +27,15 @@ namespace Tarumt.WAM.Assignment.ERD
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string SecurityMetaId { get; set; }
         public System.DateTime UpdatedAt { get; set; }
         public System.DateTime CreatedAt { get; set; }
+        public int LoginAttempt { get; set; }
+        public string SecurityStamps { get; set; }
+        public int Type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Tickets { get; set; }
-        public virtual UserSecurityMeta UserSecurityMeta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserLog> UserLogs { get; set; }
     }
 }

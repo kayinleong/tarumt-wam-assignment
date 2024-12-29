@@ -17,7 +17,6 @@ namespace Tarumt.WAM.Assignment.ERD
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MovieVenue()
         {
-            this.Movies = new HashSet<Movy>();
             this.MovieShowtimes = new HashSet<MovieShowtime>();
         }
     
@@ -27,8 +26,6 @@ namespace Tarumt.WAM.Assignment.ERD
         public System.DateTime UpdatedAt { get; set; }
         public System.DateTime CreatedAt { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Movy> Movies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovieShowtime> MovieShowtimes { get; set; }
     }
